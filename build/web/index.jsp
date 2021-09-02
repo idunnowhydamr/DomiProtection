@@ -115,7 +115,7 @@
                             <div>
                                 <%
                                     id = String.valueOf(listaP.getProductos(i).getId());
-                                    direccion = "../Controlador?accion=AgregarCarrito&id=";
+                                    direccion = "Controlador?accion=AgregarCarrito&id=";
                                     if (request.getAttribute("direccion") != null) {
                                         direccion = (String) request.getAttribute("direccion");
                                     }
