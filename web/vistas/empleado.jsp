@@ -1,6 +1,6 @@
 <%-- 
-    Document   : producto
-    Created on : 2/09/2021, 10:00:27 a. m.
+    Document   : empleado
+    Created on : 2/09/2021, 10:02:16 a. m.
     Author     : EMANUEL ORTIZ
 --%>
 
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Producto</h1>
+        <h1>Empleado</h1>
     </body>
 </html>

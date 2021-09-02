@@ -77,13 +77,13 @@ public class Validar extends HttpServlet {
                   request.setAttribute("usuario", em);
                   request.getRequestDispatcher("Controlador?accion=Principal").forward(request, response);
               }else{
-                  request.getRequestDispatcher("index.jsp").forward(request, response);
+                  request.getRequestDispatcher("./vistas/validarEmpleado.jsp").forward(request, response);
               }
           } catch (SQLException ex) {
               Logger.getLogger(Validar.class.getName()).log(Level.SEVERE, null, ex);
           }
       }else{
-          request.getRequestDispatcher("index.jsp").forward(request, response);
+          request.getRequestDispatcher("./vistas/validarEmpleado.jsp").forward(request, response);
       }
         
     }

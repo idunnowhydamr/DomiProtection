@@ -49,6 +49,18 @@ public class Controlador extends HttpServlet {
         HttpSession sesion = request.getSession();
         switch (accion) {
             case "Principal":
+            request.getRequestDispatcher("./vistas/principal.jsp").forward(request, response);
+            break;
+            case "Producto":
+                 request.getRequestDispatcher("vistas/Principal.jsp").forward(request, response);
+                break;
+            case "Empleado":
+                request.getRequestDispatcher("vistas/Principal.jsp").forward(request, response);
+                break;
+            case "Cliente":
+                request.getRequestDispatcher("vistas/Principal.jsp").forward(request, response);
+                break;
+            case "NuevaVenta":
                 request.getRequestDispatcher("vistas/Principal.jsp").forward(request, response);
                 break;
             case "Comprar":
@@ -143,7 +155,7 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("direccion", direccion);
                 request.setAttribute("existe", existe);
 
-                request.getRequestDispatcher("./vistas/producto.jsp").forward(request, response);
+                request.getRequestDispatcher("./index.jsp").forward(request, response);
                 break;
             case "Delete":
                 int posicion = Integer.parseInt(request.getParameter("pos"));
