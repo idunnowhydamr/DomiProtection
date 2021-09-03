@@ -17,6 +17,7 @@
         <div class="cotainer mt-4 col-lg-4">
             <div class="card">
                 <div class="card-body col-sm-10">
+                    
                     <form class="form-sign" action="../Validar" method="POST">
                         <div class="form-group text-center">
                             <h3>Iniciar sesion</h3>

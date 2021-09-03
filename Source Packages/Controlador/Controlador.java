@@ -86,7 +86,9 @@ public class Controlador extends HttpServlet {
                     break;
                 case "Editar":
                     ide=Integer.parseInt(request.getParameter("id"));
+                    //Se guarda id del empleado para ser utilizado en el actualizar.
                     Empleado e=emdao.listarId(ide);
+                    em.setId(ide);
                     request.setAttribute("empleado", e);
                     request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
                     break;
@@ -102,12 +104,14 @@ public class Controlador extends HttpServlet {
                     em.setTel(tel1);
                     em.setEstado(est1);
                     em.setUser(user1);
-                    //Se agrega empleado a la db.
-                    em.setId(ide);
+                    
                     emdao.Actualizar(em);
                     request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
                     break;
                 case "Delete":
+                    ide=Integer.parseInt(request.getParameter("pos"));
+                    emdao.delete(ide);
+                    request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
                     break;
                 default:
                      

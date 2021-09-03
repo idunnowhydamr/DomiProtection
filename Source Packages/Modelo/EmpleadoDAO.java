@@ -194,7 +194,7 @@ public class EmpleadoDAO {
             ps.setString(2,em.getNom());
             ps.setString(3,em.getTel());
             ps.setString(4,em.getEstado());
-            ps.setString(5, em.getEstado());
+            ps.setString(5, em.getUser());
             ps.setInt(6, em.getId());
             //Se envia peticion.
             ps.executeUpdate();     

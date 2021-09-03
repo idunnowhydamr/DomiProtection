@@ -101,7 +101,10 @@
                             <td><% out.println(listaE.getEmpleados(i).getEstado());%></td>
                             <td><% out.println(listaE.getEmpleados(i).getUser());%></td>
                             <td><a class="btn btn-warning" href="Controlador?menu=Empleado&accion=Editar&id=<%=(listaE.getEmpleados(i).getId())%>">Editar</a>
-                                <a class="btn btn-danger" href="Controlador?menu=Empleado&accion=Delete&id=<%=(listaE.getEmpleados(i).getId())%>">Eliminar</a>
+                                
+                                <input type="hidden" id="pos" value="<%=listaE.getEmpleados(i).getId()%>">
+                                <a class="btn btn-danger" id="btnBorrar" href="#">Eliminar</a>
+                                 
                             </td>
                         </tr>
                         <%i++;
@@ -111,8 +114,11 @@
 
             </div>
         </div>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://code.jquery.com/jquery.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="./js/funciones.js" type="text/javascript"></script>
     </body>
+    
 </html>

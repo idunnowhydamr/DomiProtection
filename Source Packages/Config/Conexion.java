@@ -23,15 +23,15 @@ public class Conexion {
  * Se pone como comentario la de clever cloud, debido a fallo en las peticiones
  */
         Connection con;
-//    String url = "jdbc:mysql://b0zh41zvfavmwpx7ezx0-mysql.services.clever-cloud.com:3306/b0zh41zvfavmwpx7ezx0";
-//    String Driver = "com.mysql.jdbc.Driver";
-//    String user = "ulfb0uim57oibj3x";
-//    String pass = "xdNBbvPA031nImP58VTN";
+    String url = "jdbc:mysql://b0zh41zvfavmwpx7ezx0-mysql.services.clever-cloud.com:3306/b0zh41zvfavmwpx7ezx0";
+    String Driver = "com.mysql.jdbc.Driver";
+    String user = "ulfb0uim57oibj3x";
+    String pass = "xdNBbvPA031nImP58VTN";
     
-    String url = "jdbc:mysql://localhost:3306/prueba";
-            String Driver = "com.mysql.jdbc.Driver";
-            String user = "root";
-            String pass = "";
+//    String url = "jdbc:mysql://localhost:3306/prueba";
+//            String Driver = "com.mysql.jdbc.Driver";
+//            String user = "root";
+//            String pass = "";
 
     public Connection getConnection() {
         try {
