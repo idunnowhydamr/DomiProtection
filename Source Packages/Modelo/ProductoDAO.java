@@ -5,10 +5,10 @@
  */
 package Modelo;
 
- import Config.Conexion;
+import Config.Conexion;
 import java.sql.ResultSet;
 import java.sql.Connection;
- import java.sql.PreparedStatement;
+import java.sql.PreparedStatement;
 import java.sql.DriverManager;
 import java.io.OutputStream;
 import Config.Conexion;
@@ -21,51 +21,52 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
- *
+ * Crea la lista simple de los productos para poder ser mostrados a los clientes.
  * @author diego
  */
 public class ProductoDAO {
-    //Conectando la Base de datos
-            Conexion cn = new Conexion();
-            Connection con;
-            PreparedStatement ps;
-            //Emnpezamos Listando los Datos de la Tabla producto
-            Statement smt;
-            ResultSet rs;
-             private Nodo apuntador = null;
-   private Nodo cabeza = null;
-    private int size=0;
 
+    //Conectando la Base de datos
+    Conexion cn = new Conexion();
+    Connection con;
+    PreparedStatement ps;
+    //Emnpezamos Listando los Datos de la Tabla producto
+    Statement smt;
+    ResultSet rs;
+    //Declaracion de nodos base.
+    private Nodo apuntador = null;
+    private Nodo cabeza = null;
+    private int size = 0;
+ 
+    //Se obtiene el apuntador.
     public Nodo getApuntador() {
         return apuntador;
     }
-
+    //Se establece el apuntador.
     public void setApuntador(Nodo apuntador) {
         this.apuntador = apuntador;
     }
-
+    //Se obtiene la cabeza de la lista.
     public Nodo getCabeza() {
         return cabeza;
     }
-
+    //Se establece la cabeza de la lista.
     public void setCabeza(Nodo cabeza) {
         this.cabeza = cabeza;
     }
-
+   //Se obtiene el tamaño de la lista.
     public int getSize() {
         return size;
     }
-
+    //Se establece el tamaño de la lista.
     public void setSize(int size) {
         this.size = size;
     }
 
-    
-    
-    public void insertarPrincipioNodo(int id, String nombres,String descripcion, double precio, int stock) {
-        Nodo newNodo = new Nodo(new Producto(id, nombres,descripcion, precio, stock));
+    //Metodo para insertar el primer nodo del producto.
+    public void insertarPrincipioNodo(int id, String nombres, String descripcion, double precio, int stock) {
+        Nodo newNodo = new Nodo(new Producto(id, nombres, descripcion, precio, stock));
         if (cabeza == null) {
             cabeza = newNodo;
         } else {
@@ -73,12 +74,13 @@ public class ProductoDAO {
             cabeza = newNodo;
         }
         size++;
-              
+
     }
-    
-    public void insertarFinalNodo(int id, String nombres,String descripcion, double precio, int stock) {
-        Nodo newNodo = new Nodo(new Producto(id, nombres,descripcion, precio, stock));
-      apuntador=null;
+
+    //Metodo para agregar productos a la lista creada de productos.
+    public void insertarFinalNodo(int id, String nombres, String descripcion, double precio, int stock) {
+        Nodo newNodo = new Nodo(new Producto(id, nombres, descripcion, precio, stock));
+        apuntador = null;
         if (cabeza == null) {
             newNodo = cabeza;
         } else {
@@ -87,13 +89,16 @@ public class ProductoDAO {
                 apuntador = apuntador.siguiente;
             }
             apuntador.siguiente = newNodo;
-            size++;    
+            size++;
         }
     }
-public void destruir(){
-cabeza=null;
-apuntador=null;
-}
+    //Metodo para eliminar la lista.
+    public void destruir() {
+        cabeza = null;
+        apuntador = null;
+    }
+//Se busca por el id de cada producto para obtener un dato en especifico.
+
     public Producto getProductos(int index) {
         apuntador = null;
         if (cabeza != null) {
@@ -109,60 +114,61 @@ apuntador=null;
         }
         return apuntador.dato;
     }
-    public Producto listarId(int id){
-        
-        String sql ="select * from producto where idProducto="+id;
-        Producto p=new Producto();
-        try{
+
+    //Se hace peticion a la base de datos para obtener toda la informacion de cada producto.
+    public Producto listarId(int id) {
+
+        String sql = "select * from producto where idProducto=" + id;
+        Producto p = new Producto();
+        try {
             con = cn.getConnection();
-             smt = con.createStatement();
+            smt = con.createStatement();
             rs = smt.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 p.setId(rs.getInt(1));
                 p.setNombres(rs.getString(2));
                 p.setDescripcion(rs.getString(4));
                 p.setPrecio(rs.getDouble(5));
                 p.setStock(rs.getInt(6));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
         }
         return p;
     }
-    public void listarIMG(int idProducto,   HttpServletResponse response) throws SQLException{
-         Conexion cn= new Conexion();
-            
-            Connection con=cn.getConnection();
-    PreparedStatement ps;
-    ResultSet rs;
-    ps = con.prepareStatement("SELECT foto FROM producto where idProducto=?" );
-    OutputStream oImage;
-    try {
-        
-        
-        ps.setInt(1,idProducto);
-        
-        rs = ps.executeQuery();
-        if (rs.next()) {
-            byte barray[] = rs.getBytes(1);
-            response.setContentType("image/jpeg");
-            oImage = response.getOutputStream();
-            oImage.write(barray);
-            oImage.flush();
-            oImage.close();
-        }
-    } catch (Exception ex) {
-        ex.printStackTrace();
-    } finally {
+
+    //Se hace peticion a la base de datos para obtener la imagen.
+    public void listarIMG(int idProducto, HttpServletResponse response) throws SQLException {
+        Conexion cn = new Conexion();
+
+        Connection con = cn.getConnection();
+        PreparedStatement ps;
+        ResultSet rs;
+        ps = con.prepareStatement("SELECT foto FROM producto where idProducto=?");
+        OutputStream oImage;
         try {
-            if (con != null) {
-                con.close();
+
+            ps.setInt(1, idProducto);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                byte barray[] = rs.getBytes(1);
+                response.setContentType("image/jpeg");
+                oImage = response.getOutputStream();
+                oImage.write(barray);
+                oImage.flush();
+                oImage.close();
             }
         } catch (Exception ex) {
-             ex.printStackTrace();
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
-    }
 
-    
 }
-

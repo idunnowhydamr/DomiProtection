@@ -3,6 +3,7 @@ package Controlador;
 
 import Modelo.Empleado;
 import Modelo.EmpleadoDAO;
+import Modelo.Producto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -67,15 +68,16 @@ public class Validar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      String accion=request.getParameter("accion");
+      String accion=request.getParameter("menu");
       if(accion.equalsIgnoreCase("Ingresar")){
           String user=request.getParameter("textuser");
           String pass=request.getParameter("textpass");
           try {
+              
               em=edao.validar(user, pass);
               if(em.getUser()!=null){
                   request.setAttribute("usuario", em);
-                  request.getRequestDispatcher("Controlador?accion=Principal").forward(request, response);
+                  request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
               }else{
                   request.getRequestDispatcher("./vistas/validarEmpleado.jsp").forward(request, response);
               }
@@ -88,14 +90,5 @@ public class Validar extends HttpServlet {
         
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+   
 }

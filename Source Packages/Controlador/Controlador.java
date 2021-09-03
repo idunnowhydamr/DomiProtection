@@ -11,11 +11,16 @@ import Modelo.CarritoDAO;
 import Modelo.Cliente;
 import Modelo.Compra;
 import Modelo.CompraDAO;
+import Modelo.Empleado;
+import Modelo.EmpleadoDAO;
 import Modelo.Pago;
 import Modelo.Producto;
 import Modelo.ProductoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +34,10 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
-
+    //Se crean los objetos que se relacionan con la tabla empleado en la db.
+    Empleado em=new Empleado();
+    EmpleadoDAO emdao=new EmpleadoDAO();
+    
     Fecha fecha = new Fecha();
     ProductoDAO pdao = new ProductoDAO();
     CarritoDAO cdao = new CarritoDAO();
@@ -44,25 +52,56 @@ public class Controlador extends HttpServlet {
     boolean carritoVacio = false;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
+        //Se declaran las variables que van a recibir los parametros.
+        String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
         HttpSession sesion = request.getSession();
-        switch (accion) {
-            case "Principal":
+        //Casos con el parametro menu(Para el empleado).
+        if (menu.equalsIgnoreCase("Empleado")) {
+            //Se crea un switch para recibir las acciones que se envien desde la pantalla de empleado.
+            switch (accion) {
+                case "Listar":
+                    //Redirige al empleado a la lista de empleados.
+                    request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
+                    break;
+                case "Agregar":
+                    //Recibe los datos que se envian desdce el formulario de empleado.
+                    String dni=request.getParameter("txtDni");
+                    String nom=request.getParameter("txtNombres");
+                    String tel=request.getParameter("txtTel");
+                    String est=request.getParameter("txtEstado");
+                    String user=request.getParameter("txtUsuario");
+                    //Se guarda temporalmente la informacion en el objeto empleado para enviarlo a la db.
+                    em.setDni(dni);
+                    em.setNom(nom);
+                    em.setTel(tel);
+                    em.setEstado(est);
+                    em.setUser(user);
+                    //Se agrega empleado a la db.
+                    emdao.Agregar(em);
+                    //Redirige al empleado a la lista de empleados.
+                    request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
+                    break;
+                case "Editar":
+                    break;
+                case "Delete":
+                    break;
+                default:
+                     
+            }
+           
+        } else if (menu.equalsIgnoreCase("Producto")) {
+            request.getRequestDispatcher("./vistas/producto.jsp").forward(request, response);
+        } else if (menu.equalsIgnoreCase("Cliente")) {
+            request.getRequestDispatcher("./vistas/clientes.jsp").forward(request, response);
+        } else if (menu.equalsIgnoreCase("NuevaVenta")) {
+            request.getRequestDispatcher("./vistas/registrarVenta.jsp").forward(request, response);
+        } else if (menu.equalsIgnoreCase("Principal")) {
             request.getRequestDispatcher("./vistas/principal.jsp").forward(request, response);
-            break;
-            case "Producto":
-                 request.getRequestDispatcher("vistas/Principal.jsp").forward(request, response);
-                break;
-            case "Empleado":
-                request.getRequestDispatcher("vistas/Principal.jsp").forward(request, response);
-                break;
-            case "Cliente":
-                request.getRequestDispatcher("vistas/Principal.jsp").forward(request, response);
-                break;
-            case "NuevaVenta":
-                request.getRequestDispatcher("vistas/Principal.jsp").forward(request, response);
-                break;
+        }
+        //Casos con el parametro accion(Para los clientes).
+        switch (accion) {
             case "Comprar":
                 idp = Integer.parseInt(request.getParameter("id"));
 
@@ -227,7 +266,11 @@ public class Controlador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -242,7 +285,11 @@ public class Controlador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
