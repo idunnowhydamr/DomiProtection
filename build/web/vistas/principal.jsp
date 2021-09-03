@@ -13,7 +13,6 @@
         <link href="css/bootstrap.css" rel="stylesheet">   
         <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>Principal</title>
     </head>
@@ -24,19 +23,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" id="headerdomiprotection" href="Controlador?accion=Principal">Principal</a>
+                            <a class="nav-link active text-light" aria-current="page" id="headerdomiprotection" href="Controlador?menu=Principal">Principal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador?accion=Producto" target="#myFrame">Producto</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador?menu=Producto" target="myFrame">Producto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador?accion=Empleado" target="#myFrame">Empleado</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador?menu=Empleado&accion=Listar" target="myFrame">Empleado</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador?accion=Cliente" target="#myFrame">Clientes</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador?menu=Cliente" target="myFrame">Clientes</a>
                         </li>
                           <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador?accion=NuevaVenta" target="#myFrame">Nueva Venta</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador?menu=NuevaVenta" target="myFrame">Nueva Venta</a>
                         </li>
                     </ul>
                     <div class="dropdown text-center">
@@ -59,9 +58,10 @@
                 </div>
                 </div>
             </div>
-        </nav>
+        </nav> 
+                   <!-- Se utiliza para mostrar las pantallas que se piden en el navbar  -->
                         <div class="m-4" style="height: 550px;">
-                            <iframe id="myFrame" style="height: 100%; width: 100%"></iframe>
+                            <iframe name="myFrame" style="height: 100%; width: 100%"></iframe>
                         </div>              
         <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>

@@ -73,4 +73,5 @@ public class Empleado {
         this.user = user;
     }
     
+    
 }
