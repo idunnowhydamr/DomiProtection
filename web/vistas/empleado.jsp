@@ -28,81 +28,86 @@
                     <form action="Controlador?menu=Empleado" method="POST">
                         <div class="form-group">
                             <label>Identificacion</label>
-                            <input type="text" name="txtDni" class="form-control">
+                            <input type="text" value="${empleado.getDni()}" name="txtDni" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input type="text" name="txtNombres" class="form-control">
+                            <input type="text" value="${empleado.getNom()}"  name="txtNombres" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Telefono</label>
-                            <input type="text" name="txtTel" class="form-control">
+                            <input type="text" value="${empleado.getTel()}"  name="txtTel" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Estado</label>
-                            <input type="text" name="txtEstado" class="form-control">
+                            <input type="text" value="${empleado.getEstado()}"  name="txtEstado" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Usuario</label>
-                            <input type="text" name="txtUsuario" class="form-control">
+                            <input type="text" value="${empleado.getUser()}"  name="txtUsuario" class="form-control">
                         </div>
                         <input class="btn btn-danger mt-2" type="submit" name="accion" value="Agregar">
+                        <input class="btn btn-success mt-2" type="submit" name="accion" value="Actualizar">
                     </form>
                 </div>
             </div>
             <div class="col-sm-4">
                 <table class="table table-hover">
                     <thead>
-                        <%
-                            //Conectando la Base de datos
-            Conexion cn = new Conexion();
-            Connection con = cn.getConnection();
-            PreparedStatement ps;
-            //Emnpezamos Listando los Datos de la Tabla producto
-            Statement smt;
-            ResultSet rs;
-            smt = con.createStatement();
-            rs = smt.executeQuery("select * from empleado");
-            
-            //Creamos la Tabla:     
-            EmpleadoDAO listaE= new EmpleadoDAO();
-            
-                                
-                                while (rs.next()) {
-                                int i = 0;
-                                //Se crea el objeto empleado para que guarde los datos de cada empleado temporalmente.
-            Empleado em = new Empleado();
-              em.setId(rs.getInt(1));
-                em.setDni(rs.getString(2));
-                em.setNom(rs.getString(3));
-                em.setTel(rs.getString(4));
-                em.setEstado(rs.getString(5));
-                em.setUser(rs.getString(6));
-                listaE.insertarPrincipioNodo(em.getId(),em.getDni(),em.getNom(),em.getTel(),em.getEstado(),em.getUser());
-            listaE.insertarFinalNodo(em.getId(),em.getDni(),em.getNom(),em.getTel(),em.getEstado(),em.getUser());
-
-                            %>
                         <tr>
-                            <th><% out.println(listaE.getEmpleados(i).getId());%></th>
-                            <th><% out.println(listaE.getEmpleados(i).getNom());%></th>
-                            <th><% out.println(listaE.getEmpleados(i).getTel());%></th>
-                            <th><% out.println(listaE.getEmpleados(i).getEstado());%></th>
-                            <th><% out.println(listaE.getEmpleados(i).getUser());%></th>
-                            <th>ACCIONES</th>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Identificacion</th>
+                            <th>Telefono</th>
+                            <th>Estado</th>
+                            <th>Usuario</th>
+                            <th>Acciones</th>
                         </tr>
-                        <%i++;}%>
                     </thead>
                     <tbody>
+                        <%
+                            //Conectando la Base de datos
+                            Conexion cn = new Conexion();
+                            Connection con = cn.getConnection();
+                            PreparedStatement ps;
+                            //Emnpezamos Listando los Datos de la Tabla producto
+                            Statement smt;
+                            ResultSet rs;
+                            smt = con.createStatement();
+                            rs = smt.executeQuery("select * from empleado");
+
+                            //Creamos la Tabla:     
+                            EmpleadoDAO listaE = new EmpleadoDAO();
+
+                            while (rs.next()) {
+                                int i = 0;
+                                //Se crea el objeto empleado para que guarde los datos de cada empleado temporalmente.
+                                Empleado em = new Empleado();
+                                em.setId(rs.getInt(1));
+                                em.setDni(rs.getString(2));
+                                em.setNom(rs.getString(3));
+                                em.setTel(rs.getString(4));
+                                em.setEstado(rs.getString(5));
+                                em.setUser(rs.getString(6));
+                                listaE.insertarPrincipioNodo(em.getId(), em.getDni(), em.getNom(), em.getTel(), em.getEstado(), em.getUser());
+                                listaE.insertarFinalNodo(em.getId(), em.getDni(), em.getNom(), em.getTel(), em.getEstado(), em.getUser());
+
+                        %>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><% out.println(listaE.getEmpleados(i).getId());%></td>
+                            <td><% out.println(listaE.getEmpleados(i).getNom());%></td>
+                            <td><% out.println(listaE.getEmpleados(i).getDni());%></td>
+                            <td><% out.println(listaE.getEmpleados(i).getTel());%></td>
+                            <td><% out.println(listaE.getEmpleados(i).getEstado());%></td>
+                            <td><% out.println(listaE.getEmpleados(i).getUser());%></td>
+                            <td><a class="btn btn-warning" href="Controlador?menu=Empleado&accion=Editar&id=<%=(listaE.getEmpleados(i).getId())%>">Editar</a>
+                                <a class="btn btn-danger" href="Controlador?menu=Empleado&accion=Delete&id=<%=(listaE.getEmpleados(i).getId())%>">Eliminar</a>
+                            </td>
                         </tr>
+                        <%i++;
+                            }%>
                     </tbody>
-                </table>
+                </table>    
 
             </div>
         </div>

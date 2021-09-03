@@ -57,6 +57,7 @@ public class Controlador extends HttpServlet {
         String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
         HttpSession sesion = request.getSession();
+        int ide = 0 ;
         //Casos con el parametro menu(Para el empleado).
         if (menu.equalsIgnoreCase("Empleado")) {
             //Se crea un switch para recibir las acciones que se envien desde la pantalla de empleado.
@@ -84,6 +85,27 @@ public class Controlador extends HttpServlet {
                     request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
                     break;
                 case "Editar":
+                    ide=Integer.parseInt(request.getParameter("id"));
+                    Empleado e=emdao.listarId(ide);
+                    request.setAttribute("empleado", e);
+                    request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
+                    break;
+                case "Actualizar":
+                    String dni1=request.getParameter("txtDni");
+                    String nom1=request.getParameter("txtNombres");
+                    String tel1=request.getParameter("txtTel");
+                    String est1=request.getParameter("txtEstado");
+                    String user1=request.getParameter("txtUsuario");
+                    //Se guarda temporalmente la informacion en el objeto empleado para enviarlo a la db.
+                    em.setDni(dni1);
+                    em.setNom(nom1);
+                    em.setTel(tel1);
+                    em.setEstado(est1);
+                    em.setUser(user1);
+                    //Se agrega empleado a la db.
+                    em.setId(ide);
+                    emdao.Actualizar(em);
+                    request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
                     break;
                 case "Delete":
                     break;
