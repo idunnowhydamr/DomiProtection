@@ -25,6 +25,10 @@ public class Nodo {
     public Nodo(Empleado dato) {
         this.dato2 = dato;
     }
+    //Se crea el nodo de tipo Cliente.
+    public Nodo(Cliente dato) {
+        this.dato3 = dato;
+    }
     public Nodo siguiente=null;
 
     public Nodo() {
@@ -33,4 +37,5 @@ public class Nodo {
    public Producto dato;
    public Carrito dato1;
    public Empleado dato2;
+   public Cliente dato3;
 }

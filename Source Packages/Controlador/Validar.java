@@ -77,7 +77,7 @@ public class Validar extends HttpServlet {
               em=edao.validar(user, pass);
               if(em.getUser()!=null){
                   request.setAttribute("usuario", em);
-                  request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+                  request.getRequestDispatcher("Controlador1?menu=Principal").forward(request, response);
               }else{
                   request.getRequestDispatcher("./vistas/validarEmpleado.jsp").forward(request, response);
               }

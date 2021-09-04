@@ -34,9 +34,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
-    //Se crean los objetos que se relacionan con la tabla empleado en la db.
-    Empleado em=new Empleado();
-    EmpleadoDAO emdao=new EmpleadoDAO();
+  
     
     Fecha fecha = new Fecha();
     ProductoDAO pdao = new ProductoDAO();
@@ -54,78 +52,9 @@ public class Controlador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         //Se declaran las variables que van a recibir los parametros.
-        String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
         HttpSession sesion = request.getSession();
-        int ide = 0 ;
-        //Casos con el parametro menu(Para el empleado).
-        if (menu.equalsIgnoreCase("Empleado")) {
-            //Se crea un switch para recibir las acciones que se envien desde la pantalla de empleado.
-            switch (accion) {
-                case "Listar":
-                    //Redirige al empleado a la lista de empleados.
-                    request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
-                    break;
-                case "Agregar":
-                    //Recibe los datos que se envian desdce el formulario de empleado.
-                    String dni=request.getParameter("txtDni");
-                    String nom=request.getParameter("txtNombres");
-                    String tel=request.getParameter("txtTel");
-                    String est=request.getParameter("txtEstado");
-                    String user=request.getParameter("txtUsuario");
-                    //Se guarda temporalmente la informacion en el objeto empleado para enviarlo a la db.
-                    em.setDni(dni);
-                    em.setNom(nom);
-                    em.setTel(tel);
-                    em.setEstado(est);
-                    em.setUser(user);
-                    //Se agrega empleado a la db.
-                    emdao.Agregar(em);
-                    //Redirige al empleado a la lista de empleados.
-                    request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
-                    break;
-                case "Editar":
-                    ide=Integer.parseInt(request.getParameter("id"));
-                    //Se guarda id del empleado para ser utilizado en el actualizar.
-                    Empleado e=emdao.listarId(ide);
-                    em.setId(ide);
-                    request.setAttribute("empleado", e);
-                    request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
-                    break;
-                case "Actualizar":
-                    String dni1=request.getParameter("txtDni");
-                    String nom1=request.getParameter("txtNombres");
-                    String tel1=request.getParameter("txtTel");
-                    String est1=request.getParameter("txtEstado");
-                    String user1=request.getParameter("txtUsuario");
-                    //Se guarda temporalmente la informacion en el objeto empleado para enviarlo a la db.
-                    em.setDni(dni1);
-                    em.setNom(nom1);
-                    em.setTel(tel1);
-                    em.setEstado(est1);
-                    em.setUser(user1);
-                    
-                    emdao.Actualizar(em);
-                    request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
-                    break;
-                case "Delete":
-                    ide=Integer.parseInt(request.getParameter("pos"));
-                    emdao.delete(ide);
-                    request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
-                    break;
-                default:
-                     
-            }
-           
-        } else if (menu.equalsIgnoreCase("Producto")) {
-            request.getRequestDispatcher("./vistas/producto.jsp").forward(request, response);
-        } else if (menu.equalsIgnoreCase("Cliente")) {
-            request.getRequestDispatcher("./vistas/clientes.jsp").forward(request, response);
-        } else if (menu.equalsIgnoreCase("NuevaVenta")) {
-            request.getRequestDispatcher("./vistas/registrarVenta.jsp").forward(request, response);
-        } else if (menu.equalsIgnoreCase("Principal")) {
-            request.getRequestDispatcher("./vistas/principal.jsp").forward(request, response);
-        }
+       
         //Casos con el parametro accion(Para los clientes).
         switch (accion) {
             case "Comprar":
@@ -266,7 +195,7 @@ public class Controlador extends HttpServlet {
                 Cliente cliente = new Cliente();
                 cliente.setId(1);
                 CompraDAO dao = new CompraDAO();
-                Compra compra = new Compra(cliente, 1, "", totalPagar, "Cancelado", cdao);
+                Compra compra = new Compra(cliente,"5550","", totalPagar,"Cancelado", cdao);
                 int res = dao.GenerarCompra(compra);
                 if (res != 0 && totalPagar > 0) {
                     request.getRequestDispatcher("./vistas/mensaje.jsp").forward(request, response);
@@ -278,7 +207,7 @@ public class Controlador extends HttpServlet {
             default:
 
         }
-    }
+        }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

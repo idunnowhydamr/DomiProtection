@@ -65,7 +65,7 @@ $(document).ready(function () {
         });
     }
      function eliminarEmpleado(pos) {
-        var url = "Controlador?menu=Empleado&accion=Delete";
+        var url = "Controlador1?menu=Empleado&accion=Delete";
         $.ajax({
             type: 'POST',
             url: url,

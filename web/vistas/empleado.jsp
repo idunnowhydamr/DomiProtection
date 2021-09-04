@@ -25,7 +25,7 @@
         <div class="d-flex">
             <div class="card col-sm-6">
                 <div class="card-body">
-                    <form action="Controlador?menu=Empleado" method="POST">
+                    <form action="Controlador1?menu=Empleado" method="POST">
                         <div class="form-group">
                             <label>Identificacion</label>
                             <input type="text" value="${empleado.getDni()}" name="txtDni" class="form-control">
@@ -100,7 +100,7 @@
                             <td><% out.println(listaE.getEmpleados(i).getTel());%></td>
                             <td><% out.println(listaE.getEmpleados(i).getEstado());%></td>
                             <td><% out.println(listaE.getEmpleados(i).getUser());%></td>
-                            <td><a class="btn btn-warning" href="Controlador?menu=Empleado&accion=Editar&id=<%=(listaE.getEmpleados(i).getId())%>">Editar</a>
+                            <td><a class="btn btn-warning" href="Controlador1?menu=Empleado&accion=Editar&id=<%=(listaE.getEmpleados(i).getId())%>">Editar</a>
                                 
                                 <input type="hidden" id="pos" value="<%=listaE.getEmpleados(i).getId()%>">
                                 <a class="btn btn-danger" id="btnBorrar" href="#">Eliminar</a>

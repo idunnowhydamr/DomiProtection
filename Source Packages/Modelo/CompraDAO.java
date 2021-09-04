@@ -18,23 +18,23 @@ public class CompraDAO {
     int r=0;
     public int GenerarCompra(Compra compra) {
         int idcompras;
-        String sql="insert into compras(idCliente,FechaCompras,Monto,Estado,idPago)values(?,?,?,?,?)";
+        String sql="insert into compra(IdCliente,NumeroSerie,Monto,Estado)values(?,?,?,?)";
         try{
             con = cn.getConnection();
             ps=con.prepareStatement(sql);
             ps.setInt(1, compra.getCliente().getId());
-            ps.setString(2, compra.getFecha());
+            ps.setString(2, compra.getNumeroSerie());
             ps.setDouble(3, compra.getMonto());
             ps.setString(4, compra.getEstado());
-            ps.setInt(5, compra.getIdpago());
+       
             ps.executeUpdate();
-            sql="Select @@IDENTITY AS idCompras";
+            sql="Select @@IDENTITY AS IdCompra";
             rs=ps.executeQuery(sql);
             rs.next();
-            idcompras=rs.getInt("idCompras");
+            idcompras=rs.getInt("IdCompra");
             rs.close();
             for(int i=0;i<compra.getDetallecompras().getSize();i++){
-                sql="insert into detalle_compras(idProducto,idCompras,Cantidad,PrecioCompra)value(?,?,?,?)";
+                sql="insert into detalle_compra(IdProducto,IdCompra,Cantidad,PrecioCompra)values(?,?,?,?)";
                 ps=con.prepareStatement(sql);
                 ps.setInt(1,compra.getDetallecompras().getCarrito(i).getIdProducto());
                 ps.setInt(2,idcompras);

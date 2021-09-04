@@ -23,10 +23,11 @@ public class Conexion {
  * Se pone como comentario la de clever cloud, debido a fallo en las peticiones
  */
         Connection con;
-    String url = "jdbc:mysql://b0zh41zvfavmwpx7ezx0-mysql.services.clever-cloud.com:3306/b0zh41zvfavmwpx7ezx0";
+        //b0zh41zvfavmwpx7ezx0-mysql.services.clever-cloud.com:3306/b0zh41zvfavmwpx7ezx0
+    String url = "jdbc:mysql://b5ozfrxqr4anyvls1tc4-mysql.services.clever-cloud.com:20850/b5ozfrxqr4anyvls1tc4";
     String Driver = "com.mysql.jdbc.Driver";
-    String user = "ulfb0uim57oibj3x";
-    String pass = "xdNBbvPA031nImP58VTN";
+    String user = "ulsveschpzosw2dy";
+    String pass = "Jhknjm7hWVHqJUj5cDI";
     
 //    String url = "jdbc:mysql://localhost:3306/prueba";
 //            String Driver = "com.mysql.jdbc.Driver";

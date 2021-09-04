@@ -12,16 +12,16 @@ package Modelo;
 public class Compra {
     private int id;
     private Cliente cliente;
-    private int idpago;
+    private String numeroSerie;
     private String fecha;
     private Double monto;
     private String estado;
     
     private CarritoDAO detallecompras = new CarritoDAO();
 
-    public Compra(Cliente cliente, int idpago, String fecha, Double monto, String estado, CarritoDAO detallecompras) {
+    public Compra(Cliente cliente, String numeroSerie, String fecha, Double monto, String estado, CarritoDAO detallecompras) {
         this.cliente = cliente;
-        this.idpago = idpago;
+        this.numeroSerie = numeroSerie;
         this.fecha = fecha;
         this.monto = monto;
         this.estado = estado;
@@ -44,12 +44,12 @@ public class Compra {
         this.cliente = cliente;
     }
 
-    public int getIdpago() {
-        return idpago;
+    public String getNumeroSerie() {
+        return numeroSerie;
     }
 
-    public void setIdpago(int idpago) {
-        this.idpago = idpago;
+    public void setNumeroSerie(String numeroSerie) {
+        this.numeroSerie = numeroSerie;
     }
 
     public String getFecha() {

@@ -23,19 +23,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" id="headerdomiprotection" href="Controlador?menu=Principal">Principal</a>
+                            <a class="nav-link active text-light" aria-current="page" id="headerdomiprotection" href="Controlador1?menu=Principal">Principal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador?menu=Producto" target="myFrame">Producto</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=Producto" target="myFrame">Producto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador?menu=Empleado&accion=Listar" target="myFrame">Empleado</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=Empleado&accion=Listar" target="myFrame">Empleado</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador?menu=Cliente" target="myFrame">Clientes</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=Cliente" target="myFrame">Clientes</a>
                         </li>
                           <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador?menu=NuevaVenta" target="myFrame">Nueva Venta</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=NuevaVenta&accion=default" target="myFrame">Nueva Venta</a>
                         </li>
                     </ul>
                     <div class="dropdown text-center">
