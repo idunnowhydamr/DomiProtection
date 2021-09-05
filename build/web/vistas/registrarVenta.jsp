@@ -4,6 +4,7 @@
     Author     : EMANUEL ORTIZ
 --%>
 
+<%@page import="Modelo.VentaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,10 +17,10 @@
     <body>
         <div class="d-flex">
             <div class="col-sm-5">
+                <!-- DATOS CLIENTE -->
                 <div class="card" style="width: 35rem; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
                     <form action="Controlador1?menu=NuevaVenta" method="POST">
                         <div class="card-body container">
-
                             <div class="form-group">
                                 <label>Datos del Cliente</label>
                             </div>
@@ -34,15 +35,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <!-- DATOS PRODUCTO -->
                                 <label>Datos Producto</label>
                             </div>
                             <div class="form-group d-flex row align-items-center">
                                 <div class=" d-flex mt-2 col-sm-6" >
-                                    <input type="text" name="codigoProducto" class="form-control" placeholder="Codigo">
-                                    <input type="submit" name="accion" value="Buscar" class="btn btn-outline-info">
+                                    <input type="text" name="codigoproducto" value="${producto.getId()}" class="form-control" placeholder="Codigo">
+                                    <button type="submit" name="accion" value="BuscarProducto" class="btn btn-outline-info">Buscar</button>
                                 </div>
                                 <div class="col-sm-6 mt-2">
-                                    <input type="text" name="nombreProducto" class="form-control" placeholder="Datos Producto"> 
+                                    <input type="text" name="nombreproducto" value="${producto.getNombres()}" class="form-control" placeholder="Datos Producto"> 
                                 </div>
                             </div>
                             <div class="form-group">
@@ -50,29 +52,31 @@
                             </div>
                             <div class="form-group d-flex row align-items-center">
                                 <div class=" d-flex mt-2 col-sm-6" >
-                                    <input type="text" name="precio" class="form-control" placeholder="/.0.00">
+                                    <input type="text" name="precio" value="${producto.getPrecio()}" class="form-control" placeholder="/.0.00">
 
                                 </div>
                                 <div class="col-sm-3 mt-2">
-                                    <input type="number" name="cant" class="form-control" > 
+                                    <input type="number" name="cant" value="1" class="form-control" > 
                                 </div>
                                 <div class="col-sm-3 mt-2">
-                                    <input type="text" name="stock" class="form-control" placeholder="Stock"> 
+                                    <input type="text" name="stock" value="${producto.getStock()}" class="form-control" placeholder="Stock"> 
                                 </div>
                             </div>
+                                <!-- BOTON AGREGAR PRODUCTO AL REGISTRO -->
                             <div class="form-group">
-                                <input type="submit" name="accion" value="Agregar" class="btn btn-outline-info"> 
+                                <button type="submit" name="accion" value="Agregar" class="btn btn-outline-info">Agregar Producto</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div> 
+                                
                 <div class="col-sm-7">
                     <div class="card" style="box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
                         <div class="card-body">
                             <div class="d-flex ml-auto col-sm-6">
                                 <label>NumeroSerie</label>
-                                <input type="text" name="NroSerie" class="form-control">
+                                <input type="text" name="NroSerie" value="${nserie}" class="form-control">
                             </div>
                             <br/>
                             <table class="table table-hover">
@@ -88,23 +92,42 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                     <%
+                                HttpSession sesion = request.getSession();
+                                VentaDAO vdao = new VentaDAO();
+
+                                if (request.getAttribute("vdao") != null) {
+                                    vdao = (VentaDAO) request.getAttribute("vdao");
+                                }
+                                int i = 0;
+                                while (i < vdao.getSize()) {
+
+                            %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><% out.println(vdao.getVentas(i).getItem());%></td>
+                                        <td><% out.println(vdao.getVentas(i).getIdproducto());%></td>
+                                        <td><% out.println(vdao.getVentas(i).getDescripcionP());%></td>
+                                        <td><% out.println(vdao.getVentas(i).getPrecio());%></td>
+                                        <td><% out.println(vdao.getVentas(i).getCantidad());%></td>
+                                        <td><% out.println(vdao.getVentas(i).getSubtotal());%></td>
+                                        <td>
+                                            <a href="#" class="btn btn-warning">Editar</a>
+                                            <a href="#" class="btn btn-danger">Eliminar</a>
+                                        </td>
                                     </tr>
+                                     <%i++;}%>
                                 </tbody>
                             </table>
 
                         </div>
-                        <div class="card-footer">
-                            <div>
-                                <input type="submit" name="accion" value="Generar Venta" class="btn btn-success">
+                        <div class="card-footer d-flex">
+                            <div class="col-sm-6">
+                                <a href="Controlador1?menu=NuevaVenta&accion=GenerarVenta" class="btn btn-success">Generar Venta</a>
                                 <input type="submit" name="accion" value="Cancelar" class="btn btn-danger">
+                            </div>
+                            <div class="col-sm-4 d-flex">
+                                <label>Total a pagar</label>
+                                <input type="text" name="txtTotal" value="s/. ${totalpagar}" class="form-control">
                             </div>
                         </div>
                     </div>

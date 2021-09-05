@@ -8,7 +8,7 @@ package Modelo;
 
 
 /**
- *
+ * Crea la base de todas la listas simples utilizadas.
  * @author diego
  */
 public class Nodo {
@@ -29,6 +29,10 @@ public class Nodo {
     public Nodo(Cliente dato) {
         this.dato3 = dato;
     }
+    //Se crea el nodo de tipo Venta.
+    public Nodo(Venta dato) {
+        this.dato4 = dato;
+    }
     public Nodo siguiente=null;
 
     public Nodo() {
@@ -38,4 +42,5 @@ public class Nodo {
    public Carrito dato1;
    public Empleado dato2;
    public Cliente dato3;
+   public Venta dato4;
 }

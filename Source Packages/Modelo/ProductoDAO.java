@@ -118,7 +118,7 @@ public class ProductoDAO {
     //Se hace peticion a la base de datos para obtener toda la informacion de cada producto.
     public Producto listarId(int id) {
 
-        String sql = "select * from producto where idProducto=" + id;
+        String sql = "select * from producto where IdProducto=" + id;
         Producto p = new Producto();
         try {
             con = cn.getConnection();

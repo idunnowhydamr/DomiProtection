@@ -35,7 +35,7 @@
                             <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=Cliente" target="myFrame">Clientes</a>
                         </li>
                           <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=NuevaVenta&accion=default" target="myFrame">Nueva Venta</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=NuevaVenta&accion=default&id=${usuario.getId()}" target="myFrame">Nueva Venta</a>
                         </li>
                     </ul>
                     <div class="dropdown text-center">

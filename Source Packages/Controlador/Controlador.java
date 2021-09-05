@@ -13,7 +13,6 @@ import Modelo.Compra;
 import Modelo.CompraDAO;
 import Modelo.Empleado;
 import Modelo.EmpleadoDAO;
-import Modelo.Pago;
 import Modelo.Producto;
 import Modelo.ProductoDAO;
 import java.io.IOException;

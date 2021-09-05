@@ -102,7 +102,7 @@
                                 }
                                 if (existe == false) {
                             %>
-                            <img src="./foto.jsp?idproducto=<%=rs.getInt("idProducto")%>" class="img-responsive img-fluid imagen" style="width: 10em; height: 10em" >
+                            <img src="vistas/foto.jsp?idproducto=<%=rs.getInt("idProducto")%>" class="img-responsive img-fluid imagen" style="width: 10em; height: 10em" >
                             <%
                             } else {
                             %>

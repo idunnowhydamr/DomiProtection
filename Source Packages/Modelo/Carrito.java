@@ -24,7 +24,7 @@ public class Carrito {
         this.cantidad = cantidad;
         this.subtotal = subtotal;
     }
-
+    
     public int getItem() {
         return item;
     }
