@@ -173,6 +173,16 @@ public class Controlador1 extends HttpServlet {
                     request.getRequestDispatcher("./vistas/registrarVenta.jsp").forward(request, response);
                     break;
                 case "GenerarVenta":
+                    //Actualizacion de Stock
+                    for (int i = 0; i < vdao.getSize(); i++) {
+                        Producto pr=new Producto();
+                        int cantidad=vdao.getVentas(i).getCantidad();
+                        int idproducto=vdao.getVentas(i).getIdproducto();
+                        ProductoDAO aO=new ProductoDAO();
+                        pr=aO.listarId(idproducto);
+                        int sac=pr.getStock()-cantidad;
+                        aO.actualizarstock(idproducto, sac);
+                    }
                     //Guardar Venta.
                     vt.setIdcliente(cl.getId());
                     vt.setIdempleado(em.getId());

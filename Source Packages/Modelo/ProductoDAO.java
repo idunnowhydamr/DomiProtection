@@ -34,6 +34,7 @@ public class ProductoDAO {
     //Emnpezamos Listando los Datos de la Tabla producto
     Statement smt;
     ResultSet rs;
+    int r=0;
     //Declaracion de nodos base.
     private Nodo apuntador = null;
     private Nodo cabeza = null;
@@ -114,10 +115,10 @@ public class ProductoDAO {
         }
         return apuntador.dato;
     }
-
+    
+   
     //Se hace peticion a la base de datos para obtener toda la informacion de cada producto.
     public Producto listarId(int id) {
-
         String sql = "select * from producto where IdProducto=" + id;
         Producto p = new Producto();
         try {
@@ -135,7 +136,23 @@ public class ProductoDAO {
         }
         return p;
     }
-
+    //Actualizar Stock
+    public int actualizarstock(int id, int stock){
+        //Se declara peticion sql.
+        String sql="update producto set Stock=? where IdProducto=?";
+        try{
+            //Se crea conexion a la db.
+            con=cn.getConnection();
+            //Preparacion de peticion.
+            ps=con.prepareStatement(sql);
+            ps.setInt(1, stock);
+            ps.setInt(2, id);
+            //Se actualiza stock
+            ps.executeUpdate();
+        }catch(Exception e){
+        }
+        return r;
+    }
     //Se hace peticion a la base de datos para obtener la imagen.
     public void listarIMG(int idProducto, HttpServletResponse response) throws SQLException {
         Conexion cn = new Conexion();
