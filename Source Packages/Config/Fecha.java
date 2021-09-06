@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- *
+ * Es la fecha actualizada para colocar como registro de la venta.
  * @author EMANUEL ORTIZ
  */
 public class Fecha {

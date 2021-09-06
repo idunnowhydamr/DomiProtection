@@ -2,7 +2,7 @@
 package Config;
 
 /**
- *
+ *Metodo para establecer el numero de seire de la venta.
  * @author EMANUEL ORTIZ
  */
 public class GenerarSerie {
@@ -10,7 +10,7 @@ public class GenerarSerie {
     int dato;
     String numero;
    
-    //Metodo para establecer el numero de seire de la venta.
+    //
     public String NumeroSerie(int dato){
         this.dato=dato+1;
         if((this.dato>=10000000)&&(this.dato<=100000000)){

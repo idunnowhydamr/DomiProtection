@@ -14,14 +14,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
+ *Aqui se hace la conexion, se hace con el localhost y con clever cloud
+ * Se pone como comentario la de clever cloud, debido a fallo en las peticiones.
  * @author EMANUEL ORTIZ
  */
 public class Conexion {
-/**
- * Aqui se hace la conexion, se hace con el localhost y con clever cloud
- * Se pone como comentario la de clever cloud, debido a fallo en las peticiones
- */
+
         Connection con;
         //b0zh41zvfavmwpx7ezx0-mysql.services.clever-cloud.com:3306/b0zh41zvfavmwpx7ezx0
     String url = "jdbc:mysql://b5ozfrxqr4anyvls1tc4-mysql.services.clever-cloud.com:20850/b5ozfrxqr4anyvls1tc4";
