@@ -85,11 +85,11 @@ public class CarritoDAO {
 cabeza=null;
 apuntador=null;
 }
-
+   //Metodo para eliminar objeto del carrito.
    public boolean Eliminar(int pos){
    Nodo actual =cabeza;
    Nodo anterior =null;
-     
+  //Se crea boolean para reducir tamaño del item.  
   boolean carritoVacio=false;
      
      while(actual != null){

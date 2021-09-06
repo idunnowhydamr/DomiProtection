@@ -151,10 +151,15 @@ public class Controlador extends HttpServlet {
                 request.getRequestDispatcher("./index.jsp").forward(request, response);
                 break;
             case "Delete":
+                //Recibe posicion que se quiere eliminar desde la vista.
                 int posicion = Integer.parseInt(request.getParameter("pos"));
+                //Recorre el tamaño de la lista simple de carrito.
                 for (int i = 0; i < cdao.getSize(); i++) {
+                    //Busca si la posicion enviada existe en el carrito.
                     if (cdao.getCarrito(i).getItem() == posicion) {
+                        //Trae de la clase CarritoDAO el metodo eliminar.
                         carritoVacio = cdao.Eliminar(posicion);
+                        //Reduce el tamaño del item
                         cdao.getCarrito(i).setItem(cdao.getCarrito(i).getItem() - 1);
                         if (i == cdao.getSize() - 1) {
                             item = cdao.getCarrito(i).getItem();

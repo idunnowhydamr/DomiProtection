@@ -51,8 +51,8 @@
                         <a class="dropdown-item" href="#">${usuario.getUser()}</a>
                         <a class="dropdown-item" href="#">usuario@gmail.com</a>
                         <div class="dropdown-driver"></div>
-                        <form accion="Validar" method="POST">
-                            <button name="accion" value="Salir" class="dropdown-item" >Salir</button>
+                        <form accion="../Validar" method="POST">
+                            <button name="menu" value="Salir" class="dropdown-item" >Salir</button>
                         </form>
                     </div>
                 </div>

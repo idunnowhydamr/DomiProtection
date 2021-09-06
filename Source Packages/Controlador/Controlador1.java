@@ -83,8 +83,9 @@ public class Controlador1 extends HttpServlet {
                 case "Editar":
                     ide = Integer.parseInt(request.getParameter("id"));
                     //Se guarda id del empleado para ser utilizado en el actualizar.
-                    Empleado e = emdao.listarId(ide);
-                    em.setId(ide);
+                    
+                    em = emdao.listarId(ide);
+                    
                     request.setAttribute("empleado", em);
                     request.getRequestDispatcher("./vistas/empleado.jsp").forward(request, response);
                     break;

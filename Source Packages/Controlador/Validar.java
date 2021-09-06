@@ -24,7 +24,7 @@ public class Validar extends HttpServlet {
 
     EmpleadoDAO edao=new EmpleadoDAO();
     Empleado em=new Empleado();
-    
+    String direccion="./img/login.jpeg";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -69,7 +69,7 @@ public class Validar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       String accion=request.getParameter("menu");
-      if(accion.equalsIgnoreCase("Ingresar")){
+      if(accion.equalsIgnoreCase("Ingresar Empleado")){
           String user=request.getParameter("textuser");
           String pass=request.getParameter("textpass");
           try {
@@ -84,8 +84,10 @@ public class Validar extends HttpServlet {
           } catch (SQLException ex) {
               Logger.getLogger(Validar.class.getName()).log(Level.SEVERE, null, ex);
           }
-      }else{
-          request.getRequestDispatcher("./vistas/validarEmpleado.jsp").forward(request, response);
+      }else if(accion.equalsIgnoreCase("Salir")){
+          request.getRequestDispatcher("vistas/validarEmpleado.jsp").forward(request, response);
+          request.setAttribute("redirigir",direccion);
+          request.setAttribute("enviar","./img/login.jpeg");
       }
         
     }
