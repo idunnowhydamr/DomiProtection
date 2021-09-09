@@ -55,8 +55,8 @@ public class ClienteDAO {
     }
 
     //Metodo para insertar el primer nodo del cliente.
-    public void insertarPrincipioNodo(int id, String Dni, String nombre, String direccion, String telefono, String correo, String password, String estado) {
-        Nodo newNodo = new Nodo(new Cliente(id, Dni,nombre, direccion, telefono, correo, password, estado));
+    public void insertarPrincipioNodo(int id, String Dni, String nombre, String direccion, String telefono, String correo, String password) {
+        Nodo newNodo = new Nodo(new Cliente(id, Dni,nombre, direccion, telefono, correo, password));
         if (cabeza == null) {
             cabeza = newNodo;
         } else {
@@ -68,8 +68,8 @@ public class ClienteDAO {
     }
 
     //Metodo para agregar productos a la lista creada de clientes.
-    public void insertarFinalNodo(int id, String Dni, String nombre, String direccion, String telefono, String correo, String password, String estado) {
-        Nodo newNodo = new Nodo(new Cliente(id, Dni,nombre, direccion, telefono, correo, password, estado));
+    public void insertarFinalNodo(int id, String Dni, String nombre, String direccion, String telefono, String correo, String password) {
+        Nodo newNodo = new Nodo(new Cliente(id, Dni,nombre, direccion, telefono, correo, password));
         apuntador = null;
         if (cabeza == null) {
             newNodo = cabeza;
@@ -146,14 +146,13 @@ public class ClienteDAO {
             //Se envia peticion.
             rs = ps.executeQuery();
             while (rs.next()) {
-                cl.setId(rs.getInt("IdCliente"));
+                cl.setId(rs.getInt("idCliente"));
                 cl.setDni(rs.getString("Dni"));
                 cl.setNombre(rs.getString("Nombres"));
                 cl.setDireccion(rs.getString("Direccion"));
                 cl.setTelefono(rs.getString("Telefono"));
                 cl.setCorreo(rs.getString("Email"));
                 cl.setPassword(rs.getString("Password"));
-                cl.setEstado(rs.getString("Estado"));
             }
         } catch (Exception e) {
 
@@ -165,7 +164,7 @@ public class ClienteDAO {
     //Metodo para agregar cliente a la bd.
      public int Agregar(Cliente cl) {
         //Se crea la peticion sql.
-        String sql="insert into cliente(Dni,Nombres,Direcion,Telefono,Email,Password,Estado)values(?,?,?,?,?,?,?)";
+        String sql="insert into cliente(Dni,Nombres,Direccion,Telefono,Email,Password)values(?,?,?,?,?,?)";
         try{
             //Conexion a la db.
             con = cn.getConnection();
@@ -178,7 +177,6 @@ public class ClienteDAO {
             ps.setString(4,cl.getTelefono());
             ps.setString(5,cl.getCorreo());
             ps.setString(6,cl.getPassword());
-            ps.setString(7,cl.getEstado());
             //Se envia peticion.
             ps.executeUpdate();     
         }catch(Exception e){
@@ -204,7 +202,6 @@ public class ClienteDAO {
                 cl.setTelefono(rs.getString(5));
                 cl.setCorreo(rs.getString(6));
                 cl.setPassword(rs.getString(7));
-                cl.setEstado(rs.getString(8));
                 
             }
          }catch(Exception e){
@@ -214,21 +211,20 @@ public class ClienteDAO {
      //Metodo para actualizar la informacion de un cliente.
      public int Actualizar(Cliente cl){
           //Se crea la peticion sql.
-        String sql="update cliente set Dni=?,Nombres=?,Direccion=?,Telefono=?,Email=?, Password=?, Estado=? where IdCliente=?";
+        String sql="update cliente set Dni=?,Nombres=?,Direccion=?,Telefono=?,Email=?,Password=? where IdCliente=?";
         try{
             //Conexion a la db.
             con = cn.getConnection();
             //Se prepara peticion.
             ps=con.prepareStatement(sql);
-            //Se obtienen los datos del empleado que recibe el metodo en los parametros.
-             ps.setString(1,cl.getDni());
+            //Se obtienen los datos del cliente que recibe el metodo en los parametros.
+            ps.setString(1,cl.getDni());
             ps.setString(2,cl.getNombre());
             ps.setString(3,cl.getDireccion());
             ps.setString(4,cl.getTelefono());
             ps.setString(5,cl.getCorreo());
             ps.setString(6,cl.getPassword());
-            ps.setString(7,cl.getEstado());
-            ps.setInt(8,cl.getId());
+            ps.setInt(7,cl.getId());
             //Se envia peticion.
             ps.executeUpdate();     
         }catch(Exception e){

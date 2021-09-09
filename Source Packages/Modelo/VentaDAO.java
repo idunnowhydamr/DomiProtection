@@ -155,7 +155,7 @@ public class VentaDAO {
       //Metodo para guardar venta.
      public int guardarVenta(Venta ve){ 
         //Se crea peticion sql.
-        String sql = "insert into venta(IdCliente,IdEmpleado,NumeroSerie,FechaVentas,Monto,Estado) values(?,?,?,?,?,?)";
+        String sql = "insert into venta(IdCliente,IdEmpleado,NumeroSerie,Monto,Estado,FechaVentas) values(?,?,?,?,?,CURDATE())";
         try {
              //Conexion a la db.
             con = cn.getConnection();
@@ -164,9 +164,8 @@ public class VentaDAO {
             ps.setInt(1, ve.getIdcliente());
             ps.setInt(2, ve.getIdempleado());
             ps.setString(3, ve.getNumserie());
-            ps.setString(4, ve.getFecha());
-            ps.setDouble(5, ve.getMonto());
-            ps.setString(6, ve.getEstado());
+            ps.setDouble(4, ve.getMonto());
+            ps.setString(5, ve.getEstado());
             //Se envia peticion.
              ps.executeUpdate();
         } catch (Exception e) {

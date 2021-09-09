@@ -15,17 +15,23 @@ import Modelo.ProductoDAO;
 import Modelo.Venta;
 import Modelo.VentaDAO;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.Blob;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
- *
+ * Este controlador se esta usando para la parte del empleado y su funcion es que la accion pueda cambiar y dar la 
+ * peticion en la URL.
  * @author EMANUEL ORTIZ
  */
+@MultipartConfig
 @WebServlet(name = "Controlador1", urlPatterns = {"/Controlador1"})
 public class Controlador1 extends HttpServlet {
      //Se crean los objetos que se relacionan con la tabla empleado en la db.
@@ -115,9 +121,123 @@ public class Controlador1 extends HttpServlet {
             }
 
         } else if (menu.equalsIgnoreCase("Producto")) {
-            request.getRequestDispatcher("./vistas/producto.jsp").forward(request, response);
+            switch (accion) {
+                case "Listar":
+                   request.getRequestDispatcher("./vistas/producto.jsp").forward(request, response);
+                    break;
+                case "Agregar":
+                    //Recibe los datos que se envian desdce el formulario de empleado.
+                    String nom = request.getParameter("txtNombres");
+                    Part part=request.getPart("fileFoto");
+                    InputStream inputStream=part.getInputStream();
+                    String desc = request.getParameter("txtDesc");
+                    Double precio = Double.parseDouble(request.getParameter("txtPrecio"));
+                    int stock= Integer.parseInt(request.getParameter("txtStock"));
+                    //Se guarda temporalmente la informacion en el objeto empleado para enviarlo a la db.
+                    pd.setNombres(nom);
+                    pd.setFoto(inputStream);
+                    pd.setDescripcion(desc);
+                    pd.setPrecio(precio);
+                    pd.setStock(stock);
+                    //Se agrega empleado a la db.
+                    pdao.agregarProducto(pd);
+                    //Redirige al empleado a la lista de empleados.
+                    request.getRequestDispatcher("./vistas/producto.jsp").forward(request, response);
+                    break;
+                case "Editar":
+                    ide = Integer.parseInt(request.getParameter("id"));
+                    //Se guarda id del empleado para ser utilizado en el actualizar.
+                    
+                    pd = pdao.listarId(ide);
+                    pd.setId(ide);
+                    request.setAttribute("producto", pd);
+                    request.getRequestDispatcher("./vistas/producto.jsp").forward(request, response);
+                    break;
+                case "Actualizar":
+                    String nom1= request.getParameter("txtNombres");
+                    Part part1=request.getPart("fileFoto");
+                    InputStream inputStream1=part1.getInputStream();
+                    String desc1 = request.getParameter("txtDesc");
+                    Double precio1 = Double.parseDouble(request.getParameter("txtPrecio"));
+                    int stock1= Integer.parseInt(request.getParameter("txtStock"));
+                    //Se guarda temporalmente la informacion en el objeto empleado para enviarlo a la db.
+                    pd.setNombres(nom1);
+                    pd.setFoto(inputStream1);
+                    pd.setDescripcion(desc1);
+                    pd.setPrecio(precio1);
+                    pd.setStock(stock1);
+
+                    pdao.Actualizar(pd);
+                    request.getRequestDispatcher("./vistas/producto.jsp").forward(request, response);
+                    break;
+                case "Delete":
+                    ide = Integer.parseInt(request.getParameter("pos"));
+                    pdao.delete(ide);
+                    request.getRequestDispatcher("./vistas/producto.jsp").forward(request, response);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
         } else if (menu.equalsIgnoreCase("Cliente")) {
-            request.getRequestDispatcher("./vistas/clientes.jsp").forward(request, response);
+             //Se crea un switch para recibir las acciones que se envien desde la pantalla de empleado.
+            switch (accion) {
+                case "Listar":
+                    //Redirige al empleado a la lista de empleados.
+                    request.getRequestDispatcher("./vistas/clientes.jsp").forward(request, response);
+                    break;
+                case "Agregar":
+                    //Recibe los datos que se envian desdce el formulario de cliente.
+                    String dni = request.getParameter("txtDni");
+                    String nom = request.getParameter("txtNombres");
+                    String dir = request.getParameter("txtDireccion");
+                    String tel = request.getParameter("txtTel");
+                    String correo = request.getParameter("txtCorreo");
+                    String pass = request.getParameter("txtPass");
+                    //Se guarda temporalmente la informacion en el objeto cliente para enviarlo a la db.
+                    cl.setDni(dni);
+                    cl.setNombre(nom);
+                    cl.setDireccion(dir);
+                    cl.setTelefono(tel);
+                    cl.setCorreo(correo);
+                    cl.setPassword(pass);
+                    //Se agrega cliente a la db.
+                    cdao.Agregar(cl);
+                    //Redirige al cliente a la lista de clientes.
+                    request.getRequestDispatcher("./vistas/clientes.jsp").forward(request, response);
+                    break;
+                case "Editar":
+                    ide = Integer.parseInt(request.getParameter("id"));
+                    //Se guarda id del cliente para ser utilizado en el actualizar.
+                    cl = cdao.listarId(ide);
+                    cl.setId(ide);
+                    request.setAttribute("cliente", cl);
+                    request.getRequestDispatcher("./vistas/clientes.jsp").forward(request, response);
+                    break;
+                case "Actualizar":
+                    String dni1 = request.getParameter("txtDni");
+                    String nom1 = request.getParameter("txtNombres");
+                    String dir1 = request.getParameter("txtDireccion");
+                    String tel1 = request.getParameter("txtTel");
+                    String correo1 = request.getParameter("txtCorreo");
+                    String pass1 = request.getParameter("txtPass");
+                    //Se guarda temporalmente la informacion en el objeto cliente para enviarlo a la db.
+                    cl.setDni(dni1);
+                    cl.setNombre(nom1);
+                    cl.setDireccion(dir1);
+                    cl.setTelefono(tel1);
+                    cl.setCorreo(correo1);
+                    cl.setPassword(pass1);
+                    cdao.Actualizar(cl);
+                    request.getRequestDispatcher("./vistas/clientes.jsp").forward(request, response);
+                    break;
+                case "Delete":
+                    ide = Integer.parseInt(request.getParameter("pos"));
+                    cdao.delete(ide);
+                    request.getRequestDispatcher("./vistas/clientes.jsp").forward(request, response);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
         } else if (menu.equalsIgnoreCase("NuevaVenta")) {
             switch (accion) {
                 case "BuscarCliente":
@@ -209,7 +329,8 @@ public class Controlador1 extends HttpServlet {
                     request.setAttribute("totalpagar", totalPagar);
                     request.setAttribute("vdao", vdao);
                     request.setAttribute("nserie", numeroserie);
-                    request.getRequestDispatcher("./vistas/registrarVenta.jsp").forward(request, response);
+                    request.setAttribute("direccionMensaje","./vistas/Principal.jsp");
+                    request.getRequestDispatcher("./vistas/mensaje.jsp").forward(request, response);
                     break;
                 default:
                     ide = Integer.parseInt(request.getParameter("id"));

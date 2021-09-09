@@ -21,9 +21,11 @@
         <title>Empleado</title>
     </head>
     <body>
-        <!-- Se muestra la informacion del usuario -->
-        <div class="d-flex">
-            <div class="card col-sm-6">
+        <div class="d-flex justify-content-center">
+            <h1>Información De Empleados.</h1>
+        </div>
+        <div class="d-flex justify-content-center" style="margin-top: 4em; ">
+            <div class="card col-sm-4" style="margin-right: 50px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
                 <div class="card-body">
                     <form action="Controlador1?menu=Empleado" method="POST">
                         <div class="form-group">
@@ -46,14 +48,14 @@
                             <label>Usuario</label>
                             <input type="text" value="${empleado.getUser()}"  name="txtUsuario" class="form-control">
                         </div>
-                        <input class="btn btn-danger mt-2" type="submit" name="accion" value="Agregar">
+                        <input class="btn btn-danger mt-2" style="margin-right: 50px; margin-left: 100px;" type="submit" name="accion" value="Agregar">
                         <input class="btn btn-success mt-2" type="submit" name="accion" value="Actualizar">
                     </form>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6" >
                 <table class="table table-hover">
-                    <thead>
+                    <thead style="box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
@@ -64,7 +66,7 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
                         <%
                             //Conectando la Base de datos
                             Conexion cn = new Conexion();
@@ -100,8 +102,8 @@
                             <td><% out.println(listaE.getEmpleados(i).getTel());%></td>
                             <td><% out.println(listaE.getEmpleados(i).getEstado());%></td>
                             <td><% out.println(listaE.getEmpleados(i).getUser());%></td>
-                            <td><a class="btn btn-warning" href="Controlador1?menu=Empleado&accion=Editar&id=<%=(listaE.getEmpleados(i).getId())%>">Editar</a>
-                                
+                            <td>
+                                <a class="btn btn-warning" style="width: 83px;" href="Controlador1?menu=Empleado&accion=Editar&id=<%=(listaE.getEmpleados(i).getId())%>">Editar</a>
                                 <input type="hidden" id="pos" value="<%=listaE.getEmpleados(i).getId()%>">
                                 <a class="btn btn-danger" id="btnBorrar" href="#">Eliminar</a>
                                  

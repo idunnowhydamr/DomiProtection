@@ -2,10 +2,12 @@
 package Modelo;
 
 
+import java.io.InputStream;
 import java.sql.Blob;
 
 
 public class Producto {
+    InputStream foto;
     int id;
     String nombres;
     String descripcion;
@@ -22,6 +24,23 @@ public class Producto {
         this.stock=stock;
     }
 
+    public Producto(InputStream foto, String nombres, String descripcion, double precio, int stock) {
+        this.foto = foto;
+        this.nombres = nombres;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.stock = stock;
+    }
+    
+
+    public InputStream getFoto() {
+        return foto;
+    }
+
+    public void setFoto(InputStream foto) {
+        this.foto = foto;
+    }
+ 
     public int getId() {
         return id;
     }

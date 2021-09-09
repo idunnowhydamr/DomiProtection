@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Config.Fecha;
+
 import Modelo.Carrito;
 import Modelo.CarritoDAO;
 import Modelo.Cliente;
@@ -28,14 +28,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * Este controlador se esta usando para la parte del cliente y su funcion es que la accion pueda cambiar y dar la 
+ * peticion en la URL.
  * @author EMANUEL ORTIZ
  */
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
   
-    
-    Fecha fecha = new Fecha();
+
     ProductoDAO pdao = new ProductoDAO();
     CarritoDAO cdao = new CarritoDAO();
     Producto p = new Producto();
@@ -47,7 +47,8 @@ public class Controlador extends HttpServlet {
     String direccion = "";
     boolean existe = true;//Direccion
     boolean carritoVacio = false;
-
+    Cliente cliente = new Cliente();
+    int idc;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         //Se declaran las variables que van a recibir los parametros.
@@ -87,6 +88,13 @@ public class Controlador extends HttpServlet {
                 cantidad = 1;
                 idp = Integer.parseInt(request.getParameter("id"));
                 p = pdao.listarId(idp);
+                idc = Integer.parseInt(request.getParameter("idc"));
+                if(idc==0){
+                    cliente.setId(0);
+                }else{
+                    cliente.setId(idc);
+                }
+                
                 if (cdao.getSize() > 0) {
                     for (int i = 0; i < cdao.getSize(); i++) {
                         if (idp == cdao.getCarrito(i).getIdProducto()) {
@@ -147,8 +155,13 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("contador", cdao.getSize());
                 request.setAttribute("direccion", direccion);
                 request.setAttribute("existe", existe);
-
-                request.getRequestDispatcher("./index.jsp").forward(request, response);
+                if(idc==0){
+                    request.getRequestDispatcher("./index.jsp").forward(request, response);
+                }else{
+                    request.setAttribute("cliente", cliente);
+                    request.getRequestDispatcher("./vistas/principalCliente.jsp").forward(request, response);
+                }
+                
                 break;
             case "Delete":
                 //Recibe posicion que se quiere eliminar desde la vista.
@@ -173,6 +186,7 @@ public class Controlador extends HttpServlet {
             case "ActulizarCantidad":
                 int idpro = Integer.parseInt(request.getParameter("idp"));
                 int cant = Integer.parseInt(request.getParameter("Cantidad"));
+                
                 for (int i = 0; i < cdao.getSize(); i++) {
                     if (cdao.getCarrito(i).getIdProducto() == idpro) {
                         cdao.getCarrito(i).setCantidad(cant);
@@ -181,34 +195,46 @@ public class Controlador extends HttpServlet {
                     }
                 }
 
-                request.getRequestDispatcher("Controlador?accion=Carrito").forward(request, response);
-
+                
                 break;
             case "Carrito":
-                totalPagar = 0.0;
-
+                 idc = Integer.parseInt(request.getParameter("id"));
+                totalPagar = 0.0;  
+                cliente.setId(idc);
                 for (int i = 0; i < cdao.getSize(); i++) {
                     totalPagar = totalPagar + cdao.getCarrito(i).getSubtotal();
                 }
                 request.setAttribute("cdao", cdao);
-
+                request.setAttribute("cliente", cliente);
                 request.setAttribute("totalPagar", totalPagar);
                 request.getRequestDispatcher("./vistas/carrito.jsp").forward(request, response);
                 break;
             case "GenerarCompra":
-                Cliente cliente = new Cliente();
-                cliente.setId(1);
+                cliente.setId(idc);
                 CompraDAO dao = new CompraDAO();
                 Compra compra = new Compra(cliente,"5550","", totalPagar,"Cancelado", cdao);
                 int res = dao.GenerarCompra(compra);
                 if (res != 0 && totalPagar > 0) {
+                    request.setAttribute("direccionMensaje", "Controlador?accion=default&id="+cliente.getId());
                     request.getRequestDispatcher("./vistas/mensaje.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("./vistas/error.jsp").forward(request, response);
                 }
                 break;
-
+            case "HistorialCompra":
+                 idc = Integer.parseInt(request.getParameter("id"));
+                cliente.setId(idc);
+                request.setAttribute("cdao", cdao);
+                request.setAttribute("cliente", cliente);
+                request.getRequestDispatcher("./vistas/historialCompra.jsp").forward(request, response);
+                break;
             default:
+                 idc = Integer.parseInt(request.getParameter("id"));
+                cliente.setId(idc);
+                request.setAttribute("cdao", cdao);
+                request.setAttribute("cliente", cliente);
+                request.getRequestDispatcher("./vistas/principalCliente.jsp").forward(request, response);
+                break;
 
         }
         }

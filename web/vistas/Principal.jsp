@@ -26,13 +26,13 @@
                             <a class="nav-link active text-light" aria-current="page" id="headerdomiprotection" href="Controlador1?menu=Principal">Principal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=Producto" target="myFrame">Producto</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=Producto&accion=Listar" target="myFrame">Producto</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=Empleado&accion=Listar" target="myFrame">Empleado</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=Cliente" target="myFrame">Clientes</a>
+                            <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=Cliente&accion=Listar" target="myFrame">Clientes</a>
                         </li>
                           <li class="nav-item">
                             <a class="nav-link active text-light" aria-current="page" href="Controlador1?menu=NuevaVenta&accion=default&id=${usuario.getId()}" target="myFrame">Nueva Venta</a>

@@ -33,6 +33,10 @@ public class Nodo {
     public Nodo(Venta dato) {
         this.dato4 = dato;
     }
+    //Se crea el nodo de tipo historial de compra.
+    public Nodo(historialCompra dato) {
+        this.dato5 = dato;
+    }
     public Nodo siguiente=null;
 
     public Nodo() {
@@ -43,4 +47,6 @@ public class Nodo {
    public Empleado dato2;
    public Cliente dato3;
    public Venta dato4;
+   public historialCompra dato5;
+   
 }

@@ -129,7 +129,8 @@
                         </div>
                         <div class="card-footer d-flex">
                             <div class="col-sm-6">
-                                <a href="Controlador1?menu=NuevaVenta&accion=GenerarVenta" onclick="print()" class="btn btn-success">Generar Venta</a>
+                                <a href="Controlador1?menu=NuevaVenta&accion=GenerarVenta" id="btnGenerarVenta" onclick="print()" class="btn btn-success">Generar Venta</a>
+                               
                                 <input type="submit" name="accion" value="Cancelar" class="btn btn-danger">
                             </div>
                             <div class="col-sm-4 d-flex">
@@ -140,8 +141,10 @@
                     </div>
                 </div>
             </div>
-            <script src="https://code.jquery.com/jquery.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="./js/funciones.js" type="text/javascript"></script>
     </body>
 </html>

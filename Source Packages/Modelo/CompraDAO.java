@@ -18,7 +18,7 @@ public class CompraDAO {
     int r=0;
     public int GenerarCompra(Compra compra) {
         int idcompras;
-        String sql="insert into compra(IdCliente,NumeroSerie,Monto,Estado)values(?,?,?,?)";
+        String sql="insert into compra(IdCliente,NumeroSerie,Monto,Estado,FechaCompra)values(?,?,?,?,CURDATE())";
         try{
             con = cn.getConnection();
             ps=con.prepareStatement(sql);

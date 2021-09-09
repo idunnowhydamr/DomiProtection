@@ -49,7 +49,7 @@
                             <a class="nav-link active text-light" aria-current="page" id="headerdomiprotection" href="#footerdomiprotection">DomiProtection</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="Controlador?accion=Carrito"><i class="fas fa-cart-plus"></i> <label>${contador}</label></a>
+                            <a class="nav-link text-light" href="Controlador?accion=Carrito&id=0"><i class="fas fa-cart-plus"></i> <label>${contador}</label></a>
                         </li>
                     </ul>
                 </div>
@@ -61,8 +61,8 @@
                             <span class="visually-hidden">Iniciar Sesion</span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Cliente</a></li>
-                            <li><a class="dropdown-item" href="#">Registrarse</a></li>
+                            <li><a class="dropdown-item" href="./vistas/validarCliente.jsp">Cliente</a></li>
+                            <li><a class="dropdown-item" href="./vistas/registrarCliente.jsp">Registrarse</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="./vistas/validarEmpleado.jsp">Empleado</a></li>
                         </ul>
@@ -128,8 +128,7 @@
                                     direccion = (String) request.getAttribute("direccion");
                                 }
                             %>
-                            <a href="<%=direccion + id%>"  class="btn btn-outline-info">Agregar carrito de compra</a>
-                            <a href="#" class="btn btn-danger">Comprar</a>
+                            <a href="<%=direccion + id+"&idc="+0%>"  class="btn btn-outline-info">Agregar carrito de compra</a>
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.io.OutputStream;
 import Config.Conexion;
 import java.io.OutputStream;
+import java.sql.Blob;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -116,6 +117,24 @@ public class ProductoDAO {
         return apuntador.dato;
     }
     
+    public void agregarProducto(Producto pd){
+        String sql="insert into producto(Nombres,Foto,Descripcion,Precio,Stock) values(?,?,?,?,?)";
+        try{
+            //Se crea conexion a la db.
+            con=cn.getConnection();
+            //Preparacion de peticion.
+            ps=con.prepareStatement(sql);
+            ps.setString(1, pd.getNombres());
+            ps.setBlob(2, pd.getFoto() );
+            ps.setString(3, pd.getDescripcion());
+            ps.setDouble(4, pd.getPrecio());
+            ps.setInt(5, pd.getStock());
+            //Se actualiza stock
+            ps.executeUpdate();
+        }catch(Exception e){
+        }
+    }
+    
    
     //Se hace peticion a la base de datos para obtener toda la informacion de cada producto.
     public Producto listarId(int id) {
@@ -136,6 +155,27 @@ public class ProductoDAO {
         }
         return p;
     }
+       //Actualizar Producto
+    public int Actualizar(Producto p){
+        //Se declara peticion sql.
+        String sql="update producto set Nombres=?,Foto=?,Descripcion=?,Precio=?,Stock=? where IdProducto=?";
+        try{
+            //Se crea conexion a la db.
+            con=cn.getConnection();
+            //Preparacion de peticion.
+            ps=con.prepareStatement(sql);
+            ps.setString(1, p.nombres);
+            ps.setBlob(2, p.getFoto());
+            ps.setString(3,p.getDescripcion());
+            ps.setDouble(4, p.getPrecio());
+            ps.setInt(5, p.getStock());
+            ps.setInt(6, p.getId());
+            //Se actualiza stock
+            ps.executeUpdate();
+        }catch(Exception e){
+        }
+        return r;
+    }
     //Actualizar Stock
     public int actualizarstock(int id, int stock){
         //Se declara peticion sql.
@@ -153,6 +193,20 @@ public class ProductoDAO {
         }
         return r;
     }
+         //Metodo para eliminar cliente de la db.
+     public void delete(int id){
+         //Se crea la peticion sql.
+         String sql="delete from producto where IdProducto="+id;
+         try{
+            //Conexion a la db.
+            con = cn.getConnection();
+            //Se prepara peticion.
+            ps=con.prepareStatement(sql);
+            //Se envia peticion.
+            ps.executeUpdate();
+         }catch(Exception e){
+         }
+     }
     //Se hace peticion a la base de datos para obtener la imagen.
     public void listarIMG(int idProducto, HttpServletResponse response) throws SQLException {
         Conexion cn = new Conexion();

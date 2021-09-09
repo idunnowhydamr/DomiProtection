@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Aqui es donde se puede traer la imagen por medio del controlador.
  * @author ASUS
  */
 public class ControladorIMG extends HttpServlet {

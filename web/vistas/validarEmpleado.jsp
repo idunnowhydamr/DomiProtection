@@ -28,16 +28,18 @@
         </nav>
          <%
              //Para traer la direccion correcta para la imagen al momento de cambiar de pagina y volver a esta misma.
+                             HttpSession sesion = request.getSession();
                              String direccion = "../img/login.jpeg";
-                             String enviar="../Validar";
+                             String validar="../Validar";;
                                 if (request.getAttribute("redirigir") != null) {
                                     direccion = (String) request.getAttribute("redirigir");
+                                    validar=(String)request.getAttribute("validar");
                                 }
                             %>
         <div class="cotainer col-lg-4" style="margin:8% auto;">
             <div class="card">
                 <div class="card-body">
-                    <form class="form-sign" action="../Validar" method="POST">
+                    <form class="form-sign" action="<%=validar%>" method="POST">
                         <div class="form-group text-center">
                             <h3>Iniciar sesion como empleado</h3>
                             <img style="width:4em;height:4em" class="img-responsive" src="<%=direccion%>" alt="login"/>

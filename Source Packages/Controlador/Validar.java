@@ -1,6 +1,8 @@
 
 package Controlador;
 
+import Modelo.Cliente;
+import Modelo.ClienteDAO;
 import Modelo.Empleado;
 import Modelo.EmpleadoDAO;
 import Modelo.Producto;
@@ -16,14 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Se utiliza este validar para el empleado, el usario y el registrarse.
  * @author EMANUEL ORTIZ
  */
 @WebServlet(name = "Validar", urlPatterns = {"/Validar"})
 public class Validar extends HttpServlet {
-
+    //Se instancia para hacer la validacion la base de datos
     EmpleadoDAO edao=new EmpleadoDAO();
     Empleado em=new Empleado();
+    ClienteDAO cdao=new ClienteDAO();
+    Cliente cl= new Cliente();
     String direccion="./img/login.jpeg";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -77,17 +81,55 @@ public class Validar extends HttpServlet {
               em=edao.validar(user, pass);
               if(em.getUser()!=null){
                   request.setAttribute("usuario", em);
+                
                   request.getRequestDispatcher("Controlador1?menu=Principal").forward(request, response);
               }else{
+                 
                   request.getRequestDispatcher("./vistas/validarEmpleado.jsp").forward(request, response);
               }
           } catch (SQLException ex) {
               Logger.getLogger(Validar.class.getName()).log(Level.SEVERE, null, ex);
           }
       }else if(accion.equalsIgnoreCase("Salir")){
-          request.getRequestDispatcher("vistas/validarEmpleado.jsp").forward(request, response);
           request.setAttribute("redirigir",direccion);
-          request.setAttribute("enviar","./img/login.jpeg");
+          request.setAttribute("validar","./Validar");
+          request.getRequestDispatcher("vistas/validarEmpleado.jsp").forward(request, response);
+      }else if(accion.equalsIgnoreCase("Ingresar")){
+          String correo=request.getParameter("textcorreo");
+          String pass=request.getParameter("textpass");
+          try {
+              
+              cl=cdao.validar(correo, pass);
+              if(cl.getCorreo()!=null){
+                  request.setAttribute("cliente", cl);
+                
+                  request.getRequestDispatcher("./vistas/principalCliente.jsp").forward(request, response);
+              }else{
+                 
+                  request.getRequestDispatcher("./vistas/validarCliente.jsp").forward(request, response);
+              }
+          } catch (SQLException ex) {
+              Logger.getLogger(Validar.class.getName()).log(Level.SEVERE, null, ex);
+          }
+      }else if(accion.equalsIgnoreCase("Cerrar Sesion")){
+          request.setAttribute("redirigir",direccion);
+          request.setAttribute("validar","./Validar");
+          request.getRequestDispatcher("./vistas/validarCliente.jsp").forward(request, response);
+      }else if(accion.equalsIgnoreCase("Registrar")){
+         String dni=request.getParameter("dni");
+         String nombre=request.getParameter("nombre");
+         String direccion=request.getParameter("direccion");
+         String telefono=request.getParameter("telefono");
+         String correo=request.getParameter("email");
+         String password=request.getParameter("password");
+         cl.setDni(dni);
+         cl.setNombre(nombre);
+         cl.setDireccion(direccion);
+         cl.setTelefono(telefono);
+         cl.setCorreo(correo);
+         cl.setPassword(password);
+         cdao.Agregar(cl);
+          request.getRequestDispatcher("./vistas/validarCliente.jsp").forward(request, response);
       }
         
     }
