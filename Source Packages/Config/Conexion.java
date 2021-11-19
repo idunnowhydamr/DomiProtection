@@ -22,10 +22,10 @@ public class Conexion {
 
         Connection con;
         //b0zh41zvfavmwpx7ezx0-mysql.services.clever-cloud.com:3306/b0zh41zvfavmwpx7ezx0
-    String url = "jdbc:mysql://b5ozfrxqr4anyvls1tc4-mysql.services.clever-cloud.com:20850/b5ozfrxqr4anyvls1tc4";
+    String url = "jdbc:mysql://bajsdhxtbaix7onvxrku-mysql.services.clever-cloud.com:3306/bajsdhxtbaix7onvxrku";
     String Driver = "com.mysql.jdbc.Driver";
-    String user = "ulsveschpzosw2dy";
-    String pass = "Jhknjm7hWVHqJUj5cDI";
+    String user = "ux9hx636wwkrxpx5";
+    String pass = "wiugWmqNkazTs6J7xyZn";
     
 //    String url = "jdbc:mysql://localhost:3306/prueba";
 //            String Driver = "com.mysql.jdbc.Driver";
