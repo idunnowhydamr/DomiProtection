@@ -20,7 +20,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" id="headerdomiprotection" href="../index.jsp">DomiProtection</a>
+                            <a class="nav-link active text-light" aria-current="page" id="headerdomiprotection" href="/PPI(1)/index.jsp">DomiProtection</a>
                         </li>
                     </ul>
                 </div>
