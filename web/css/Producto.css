@@ -8,6 +8,13 @@ and open the template in the editor.
     Author     : EMANUEL ORTIZ
 */
 
+body{
+    background: black;
+    font-size:1.2em; 
+    font-family: Garamond,serif ;
+    overflow-x: hidden;
+}
+
 .btn-whatsapp {
     display:block;
     width:4em;
@@ -21,3 +28,7 @@ and open the template in the editor.
     text-align:center;
     z-index:999;
 }
+
+         
+
+
