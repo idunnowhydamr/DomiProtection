@@ -21,16 +21,12 @@ import java.sql.Statement;
 public class Conexion {
 
         Connection con;
-        //b0zh41zvfavmwpx7ezx0-mysql.services.clever-cloud.com:3306/b0zh41zvfavmwpx7ezx0
-//    String url = "jdbc:mysql://bajsdhxtbaix7onvxrku-mysql.services.clever-cloud.com:3306/bajsdhxtbaix7onvxrku";
-//    String Driver = "com.mysql.jdbc.Driver";
-//    String user = "ux9hx636wwkrxpx5";
-//    String pass = "wiugWmqNkazTs6J7xyZn";
-//    
-    String url = "jdbc:mysql://localhost:3306/domi";
-            String Driver = "com.mysql.jdbc.Driver";
-            String user = "root";
-            String pass = "";
+   
+  
+    String url = "jdbc:mysql://bwwfslugrk1aszg2nflb-mysql.services.clever-cloud.com:3306/bwwfslugrk1aszg2nflb";
+    String Driver = "com.mysql.jdbc.Driver";
+    String user = "ufouweuqwopzudsm";
+    String pass = "RdxOZ0fyl2oGktU1iSUj";
 
     public Connection getConnection() {
         try {
@@ -38,7 +34,7 @@ public class Conexion {
             if (this.con == null) {
                 Class.forName(Driver);
                 con = DriverManager.getConnection(url, user, pass);
-                PreparedStatement ps;
+                
             }
 
         } catch (Exception e) {
