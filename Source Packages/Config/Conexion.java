@@ -17,6 +17,7 @@ import java.sql.Statement;
  *Aqui se hace la conexion, se hace con el localhost y con clever cloud
  * Se pone como comentario la de clever cloud, debido a fallo en las peticiones.
  * @author EMANUEL ORTIZ
+ * @author ASUS
  */
 public class Conexion {
 

@@ -28,8 +28,13 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/emanu/Desktop/Proyectos/DomiProtection/web/index.jsp</file>
             <file>file:/C:/Users/emanu/Desktop/Proyectos/DomiProtection/Source%20Packages/Config/Conexion.java</file>
+=======
+            <file>file:/C:/Users/ASUS/OneDrive/Escritorio/DomiProtection/web/index.jsp</file>
+            <file>file:/C:/Users/ASUS/OneDrive/Escritorio/DomiProtection/web/css/cssProducto.css</file>
+>>>>>>> 93613189d020038d828386f6fda08015470df4d6
         </group>
     </open-files>
 </project-private>
