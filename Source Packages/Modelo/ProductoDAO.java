@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.DriverManager;
 import java.io.OutputStream;
 import Config.Conexion;
-import jakarta.servlet.http.HttpServletResponse;
+
 
 import java.io.OutputStream;
 import java.sql.Blob;
@@ -22,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.servlet.http.HttpServletResponse;
 
 
 

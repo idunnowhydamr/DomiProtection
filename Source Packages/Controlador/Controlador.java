@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Modelo.Carrito;
 import Modelo.CarritoDAO;
 import Modelo.Cliente;
@@ -15,27 +14,26 @@ import Modelo.Empleado;
 import Modelo.EmpleadoDAO;
 import Modelo.Producto;
 import Modelo.ProductoDAO;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Este controlador se esta usando para la parte del cliente y su funcion es que la accion pueda cambiar y dar la 
- * peticion en la URL.
+ * Este controlador se esta usando para la parte del cliente y su funcion es que
+ * la accion pueda cambiar y dar la peticion en la URL.
+ *
  * @author EMANUEL ORTIZ
  */
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
-  
 
     ProductoDAO pdao = new ProductoDAO();
     CarritoDAO cdao = new CarritoDAO();
@@ -50,12 +48,13 @@ public class Controlador extends HttpServlet {
     boolean carritoVacio = false;
     Cliente cliente = new Cliente();
     int idc;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         //Se declaran las variables que van a recibir los parametros.
         String accion = request.getParameter("accion");
         HttpSession sesion = request.getSession();
-       
+
         //Casos con el parametro accion(Para los clientes).
         switch (accion) {
             case "Comprar":
@@ -90,12 +89,12 @@ public class Controlador extends HttpServlet {
                 idp = Integer.parseInt(request.getParameter("id"));
                 p = pdao.listarId(idp);
                 idc = Integer.parseInt(request.getParameter("idc"));
-                if(idc==0){
+                if (idc == 0) {
                     cliente.setId(0);
-                }else{
+                } else {
                     cliente.setId(idc);
                 }
-                
+
                 if (cdao.getSize() > 0) {
                     for (int i = 0; i < cdao.getSize(); i++) {
                         if (idp == cdao.getCarrito(i).getIdProducto()) {
@@ -156,13 +155,13 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("contador", cdao.getSize());
                 request.setAttribute("direccion", direccion);
                 request.setAttribute("existe", existe);
-                if(idc==0){
+                if (idc == 0) {
                     request.getRequestDispatcher("./index.jsp").forward(request, response);
-                }else{
+                } else {
                     request.setAttribute("cliente", cliente);
                     request.getRequestDispatcher("./vistas/principalCliente.jsp").forward(request, response);
                 }
-                
+
                 break;
             case "Delete":
                 //Recibe posicion que se quiere eliminar desde la vista.
@@ -187,7 +186,7 @@ public class Controlador extends HttpServlet {
             case "ActulizarCantidad":
                 int idpro = Integer.parseInt(request.getParameter("idp"));
                 int cant = Integer.parseInt(request.getParameter("Cantidad"));
-                
+
                 for (int i = 0; i < cdao.getSize(); i++) {
                     if (cdao.getCarrito(i).getIdProducto() == idpro) {
                         cdao.getCarrito(i).setCantidad(cant);
@@ -196,11 +195,10 @@ public class Controlador extends HttpServlet {
                     }
                 }
 
-                
                 break;
             case "Carrito":
-                 idc = Integer.parseInt(request.getParameter("id"));
-                totalPagar = 0.0;  
+                idc = Integer.parseInt(request.getParameter("id"));
+                totalPagar = 0.0;
                 cliente.setId(idc);
                 for (int i = 0; i < cdao.getSize(); i++) {
                     totalPagar = totalPagar + cdao.getCarrito(i).getSubtotal();
@@ -213,24 +211,24 @@ public class Controlador extends HttpServlet {
             case "GenerarCompra":
                 cliente.setId(idc);
                 CompraDAO dao = new CompraDAO();
-                Compra compra = new Compra(cliente,"5550","", totalPagar,"Cancelado", cdao);
+                Compra compra = new Compra(cliente, "5550", "", totalPagar, "Cancelado", cdao);
                 int res = dao.GenerarCompra(compra);
                 if (res != 0 && totalPagar > 0) {
-                    request.setAttribute("direccionMensaje", "Controlador?accion=default&id="+cliente.getId());
+                    request.setAttribute("direccionMensaje", "Controlador?accion=default&id=" + cliente.getId());
                     request.getRequestDispatcher("./vistas/mensaje.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("./vistas/error.jsp").forward(request, response);
                 }
                 break;
             case "HistorialCompra":
-                 idc = Integer.parseInt(request.getParameter("id"));
+                idc = Integer.parseInt(request.getParameter("id"));
                 cliente.setId(idc);
                 request.setAttribute("cdao", cdao);
                 request.setAttribute("cliente", cliente);
                 request.getRequestDispatcher("./vistas/historialCompra.jsp").forward(request, response);
                 break;
             default:
-                 idc = Integer.parseInt(request.getParameter("id"));
+                idc = Integer.parseInt(request.getParameter("id"));
                 cliente.setId(idc);
                 request.setAttribute("cdao", cdao);
                 request.setAttribute("cliente", cliente);
@@ -238,7 +236,7 @@ public class Controlador extends HttpServlet {
                 break;
 
         }
-        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

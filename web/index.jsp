@@ -12,50 +12,78 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">  
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href="css/Producto.css" rel="stylesheet"/>
-        
+
+
         <title>Productos</title>
         <style>
-            .flip-card {
-  background-color: transparent;
-  width: 300px;
-  height: 300px;
-  perspective: 1000px;
-}
+            .flip-card { 
+                perspective: 1000px;
+                width: 30rem;
+                height: 20rem;
+            }
 
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
+            .flip-card-inner {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                transition: transform 0.6s;
+                transform-style: preserve-3d;
 
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
+            }
 
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
+            .flip-card:hover .flip-card-inner {
+                transform: rotateY(180deg);
+                box-shadow: 0px 5px 21px -7px rgba(0,0,0,0.57);
+            }
 
-.flip-card-front {
-  background-color: #bbb;
-  color: black;
-}
+            .flip-card-front, .flip-card-back {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                border: 1px solid black;
+                justify-content: center;
 
-.flip-card-back {
-  background-color: #2980b9;
-  color: white;
-  transform: rotateY(180deg);
-}
-</style>
+            }
+
+            .flip-card-front {
+                background-color: white;
+                color: black;
+
+            }
+
+            .flip-card-back {
+                background-color: #bff2eb;
+                color: black;
+                transform: rotateY(180deg);
+                margin-top:3px;
+
+            }
+
+            body{
+                background: black;
+                font-size:1.2em; 
+                font-family: Garamond,serif ;
+                overflow-x: hidden;
+            }
+
+            .btn-whatsapp {
+                display:block;
+                width:4em;
+                height:4em;
+                color:#fff;
+                position: fixed;
+                right:20px;
+                bottom:20px;
+                border-radius:50%;
+                line-height:80px;
+                text-align:center;
+                z-index:999;
+            }
+
+        </style>
     </head>
     <!<!--Se coloca el tipo de letra desde aca, para que cuando 
     cambie por el controlador, lleve estos cambios-->
@@ -112,21 +140,9 @@
             </div>
         </nav>
 
-<h1>Card Flip with Text</h1>
-<h3>Hover over the image below:</h3>
 
-<div class="flip-card">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
-    </div>
-    <div class="flip-card-back">
-      <h1>John Doe</h1> 
-      <p>Architect & Engineer</p> 
-      <p>We love that guy</p>
-    </div>
-  </div>
-</div>
+
+
         <%
             //Se crea peticion para buscar el producto.
             String nombuscar = request.getParameter("txtbuscar");
@@ -144,33 +160,38 @@
                     listaP.insertarPrincipioNodo(rs.getInt("idProducto"), rs.getString("Nombres"), rs.getString("Descripcion"), rs.getDouble("Precio"), rs.getInt("Stock"));
                     listaP.insertarFinalNodo(rs.getInt("idProducto"), rs.getString("Nombres"), rs.getString("Descripcion"), rs.getDouble("Precio"), rs.getInt("Stock"));
             %>
-            <div class="col-sm-4 card-group text-center m-2 p-4"  >
-                <div class="card border-dark" >
-                    <div class="card-header" >
-                        <% out.println("<label>" + listaP.getProductos(i).getNombres() + "</label>");%>
+            <div class="col-3 text-center m-2 p-4 flip-card"  >
+                <div class="border-dark flip-card-inner" >
+                    <div class="flip-card-front" >
+                        <div>
+                            <% out.println("<label>" + listaP.getProductos(i).getNombres() + "</label>");%>
+                        </div>
+                        <div>
+                            <% out.println("<label>Codigo: " + listaP.getProductos(i).getId() + "</label>");%>
 
-                    </div>
-                    <div class="card-body" >
-                        <% out.println("<label>Codigo: " + listaP.getProductos(i).getId() + "</label>");%>
-
+                        </div>
                         <% boolean existe = false;
                             if (request.getAttribute("existe") != null) {
                                 existe = (Boolean) request.getAttribute("existe");
                             }
                             if (existe == false) {
                         %>
-                        <img src="vistas/foto.jsp?idproducto=<%=rs.getInt("idProducto")%>" class="img-responsive img-fluid imagen" style="width: 9em; height: 9em" >
+                        <img src="vistas/foto.jsp?idproducto=<%=rs.getInt("idProducto")%>" class="img-responsive img-fluid imagen " style="width: 9em; height: 9em" >
                         <%
                         } else {
                         %>
-                        <img src="ControladorIMG?id=<%=rs.getInt("idProducto")%>" class="img-responsive img-fluid imagen"  style="width: 9em; height: 9em" >
+                        <img src="ControladorIMG?id=<%=rs.getInt("idProducto")%>" class="img-responsive img-fluid imagen "  style="width: 9em; height: 9em" >
                         <%  }%>
-                        <% out.println("<i>Precio: " + listaP.getProductos(i).getPrecio() + "</i>"); %>
-                    </div>
-
-                    <div class="card-footer">
-                        <% out.println("<p>" + listaP.getProductos(i).getDescripcion() + "</p");%>
                         <div>
+                            <% out.println("<i>Precio: " + listaP.getProductos(i).getPrecio() + "</i>"); %>
+                        </div>
+
+                    </div>
+                    <div class=" flip-card-back">
+                        <% out.println("<p>" + listaP.getProductos(i).getDescripcion() + "</p");%>
+
+                        <div>
+                            <br> 
                             <%
                                 id = String.valueOf(listaP.getProductos(i).getId());
                                 direccion = "Controlador?accion=AgregarCarrito&id=";
@@ -178,7 +199,7 @@
                                     direccion = (String) request.getAttribute("direccion");
                                 }
                             %>
-                            <a href="<%=direccion + id + "&idc=" + 0%>"  class="btn btn-outline-info">Agregar carrito de compra</a>
+                            <a href="<%=direccion + id + "&idc=" + 0%>"  class="btn btn-outline-dark">Agregar carrito de compra</a>
                         </div>
                     </div>
                 </div>
@@ -208,12 +229,10 @@
                         <!-- Grid column -->
                         <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                             <h6 class="text-uppercase mb-4 font-weight-bold">
-                                Company name
+                                DomiProtection
                             </h6>
                             <p>
-                                Here you can use rows and columns to organize your footer
-                                content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                                elit.
+                                Página de ventas de equipos Bio protectores
                             </p>
                         </div>
                         <!-- Grid column -->
@@ -221,20 +240,20 @@
                         <hr class="w-100 clearfix d-md-none" />
 
                         <!-- Grid column -->
-                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-                            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                        <div class="col-md-5 col-lg-5 col-xl-5 mx-auto mt-3">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">
+                                Información del proyecto 
+                            </h6>
                             <p>
-                                <a class="text-white">MDBootstrap</a>
+                                <a class="text-black">Empresa Organización: PJIC</a>
                             </p>
                             <p>
-                                <a class="text-white">MDWordPress</a>
+                                <a class="text-black">Patrocinador principal: Politécnico Colombiano Jaime Isaza Cadavid</a>
                             </p>
                             <p>
-                                <a class="text-white">BrandFlow</a>
+                                <a class="text-black">Líder de proyecto: Diego Alejandro Muñoz Robayo - Diego Emanuel Ortiz López</a>
                             </p>
-                            <p>
-                                <a class="text-white">Bootstrap Angular</a>
-                            </p>
+
                         </div>
                         <!-- Grid column -->
 
@@ -244,72 +263,16 @@
                         <hr class="w-100 clearfix d-md-none" />
 
                         <!-- Grid column -->
-                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                             <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-                            <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
-                            <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
-                            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                            <p><i class="fas fa-home mr-3"></i> Medellin, Antioquia, COL</p>
+                            <p><i class="fas fa-envelope mr-3"></i> info@domiprotection.com</p>
+                            <p><i class="fas fa-phone mr-3"></i> + 57 3504689979</p>
+                            
                         </div>
                         <!-- Grid column -->
 
-                        <!-- Grid column -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                            <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
-
-                            <!-- Facebook -->
-                            <a
-                                class="btn btn-primary btn-floating m-1"
-                                style="background-color: #3b5998"
-                                href="#!"
-                                role="button"
-                                ><i class="fab fa-facebook-f"></i
-                                ></a>
-
-                            <!-- Twitter -->
-                            <a
-                                class="btn btn-primary btn-floating m-1"
-                                style="background-color: #55acee"
-                                href="#!"
-                                role="button"
-                                ><i class="fab fa-twitter"></i
-                                ></a>
-
-                            <!-- Google -->
-                            <a
-                                class="btn btn-primary btn-floating m-1"
-                                style="background-color: #dd4b39"
-                                href="#!"
-                                role="button"
-                                ><i class="fab fa-google"></i
-                                ></a>
-
-                            <!-- Instagram -->
-                            <a
-                                class="btn btn-primary btn-floating m-1"
-                                style="background-color: #ac2bac"
-                                href="#!"
-                                role="button"
-                                ><i class="fab fa-instagram"></i
-                                ></a>
-
-                            <!-- Linkedin -->
-                            <a
-                                class="btn btn-primary btn-floating m-1"
-                                style="background-color: #0082ca"
-                                href="#!"
-                                role="button"
-                                ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                            <!-- Github -->
-                            <a
-                                class="btn btn-primary btn-floating m-1"
-                                style="background-color: #333333"
-                                href="#!"
-                                role="button"
-                                ><i class="fab fa-github"></i
-                                ></a>
-                        </div>
+                      
                     </div>
                     <!--Grid row-->
                 </section>
@@ -317,17 +280,7 @@
             </div>
             <!-- Grid container -->
 
-            <!-- Copyright -->
-            <div
-                class="text-center p-3"
-                style="background-color: rgba(0, 0, 0, 0.2)"
-                >
-                © 2020 Copyright:
-                <a class="text-white" href="https://mdbootstrap.com/"
-                   >MDBootstrap.com</a
-                >
-            </div>
-            <!-- Copyright -->
+          
         </footer>
         <!-- Footer -->
     </div>
